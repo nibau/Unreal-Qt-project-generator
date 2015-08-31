@@ -53,8 +53,18 @@ namespace GenerateQTProject
                 projDir = projDir.Replace("\"", "");
 
                 if (Directory.Exists(projDir))
-                    isValid = true;
-                else
+                {
+                    foreach (string file in Directory.GetFiles(projDir))
+                    {
+                        if (file.EndsWith(".uproject"))
+                        {
+                            isValid = true;
+                            break;
+                        }
+                    }           
+                }
+                    
+                if (!isValid)
                     Console.WriteLine("Invalid directory path\n");
 
             } while (!isValid);
