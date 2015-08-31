@@ -10,6 +10,8 @@ The tool can generate .pro files with:
   <li>5 different build and launch targets, which are included in the Visual Studio project file (Debug game, Development Editor, Shipping, etc...)</li>
 </ul>
 
+For the standalone (no editor) targets to work, you have to make sure your content is cooked (via commandline https://docs.unrealengine.com/latest/INT/Engine/Deployment/Cooking/index.html or by launching the game externally from within the editor)
+
 For more information and a tutorial how to setup QtCreator see this post:
 https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
 
