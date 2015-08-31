@@ -16,3 +16,8 @@ For more information and a tutorial how to setup QtCreator see this post:
 https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
 
 Info: I have only tested the tool on my computers with Windows 8.1, QtCreator 3.3.0/3.5.0 and Unreal Engine 4.4/4.5/4.8
+
+<b>How to build:</b>
+Just open the .sln file with Visual Studio 2013/2015 and hit compile (.NET Framework 4.0 required)
+The qtBuildPreset.xml file needs to be in the same folder as the executable when you want to run the tool.
+
