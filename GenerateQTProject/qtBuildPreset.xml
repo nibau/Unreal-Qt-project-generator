@@ -47,7 +47,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate -silent</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -138,7 +138,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate -silent</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -188,7 +188,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -silent</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>

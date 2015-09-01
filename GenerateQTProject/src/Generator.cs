@@ -159,12 +159,12 @@ namespace GenerateQTProject
 
             // Read defines from vcxproj file
             string definesString = vcxText;
-            definesString = definesString.Substring(definesString.IndexOf("<NMakePreprocessorDefinitions>") + "<NMakePreprocessorDefinitions>".Length);
+            definesString = definesString.Substring(definesString.IndexOf("<NMakePreprocessorDefinitions>$(NMakePreprocessorDefinitions);") + "<NMakePreprocessorDefinitions>$(NMakePreprocessorDefinitions);".Length);
             definesString = definesString.Remove(definesString.LastIndexOf("</NMakePreprocessorDefinitions>"));
 
             // Read includes from vcxproj file
             string includesString = vcxText;
-            includesString = includesString.Substring(includesString.IndexOf("<NMakeIncludeSearchPath>") + "<NMakeIncludeSearchPath>".Length);
+            includesString = includesString.Substring(includesString.IndexOf("<NMakeIncludeSearchPath>$(NMakeIncludeSearchPath);") + "<NMakeIncludeSearchPath>$(NMakeIncludeSearchPath);".Length);
             includesString = includesString.Remove(includesString.LastIndexOf("</NMakeIncludeSearchPath>"));
 
             // Convert defines to Qt format
