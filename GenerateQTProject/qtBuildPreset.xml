@@ -47,6 +47,15 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
@@ -54,7 +63,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
      </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
@@ -129,6 +138,15 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
@@ -136,7 +154,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
      </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
@@ -168,7 +186,16 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.4">
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">$PROJECT_DIR/Intermediate/ProjectFiles</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
+      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
+		<value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+		<value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor</value>
+		<value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
+		<value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+		<value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
+		<value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+		<value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
@@ -177,7 +204,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
      </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
