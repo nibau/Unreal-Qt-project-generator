@@ -234,6 +234,9 @@ namespace GenerateQTProject
 
             // Retrieve Unreal Engine directory (try to retrieve from registry, if not possible, from user input)
             RegistryKey ue4InstallKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"Software\EpicGames\Unreal Engine");
+            if (ue4InstallKey == null)
+                ue4InstallKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"Software\EpicGames\Unreal Engine");
+
             if (ue4InstallKey == null || ue4InstallKey.GetValue("INSTALLDIR") == null)
             {
                 bool success = false;
@@ -242,6 +245,10 @@ namespace GenerateQTProject
                 {
                     Console.WriteLine("\nUnreal Engine 4 installation not found, please enter Unreal Engine 4 base directory (that one with the 4.x folders in it): ");
                     UNREAL_PATH = Console.ReadLine();
+                    UNREAL_PATH = UNREAL_PATH.Replace("\"", "");
+
+                    if (!UNREAL_PATH.EndsWith("\\"))
+                        UNREAL_PATH = UNREAL_PATH + "\\";
 
                     if (!Directory.Exists(UNREAL_PATH))
                     {
@@ -251,17 +258,20 @@ namespace GenerateQTProject
                     {
                         foreach (string dir in Directory.GetDirectories(UNREAL_PATH))
                         {
-                            if (dir.StartsWith("4."))
+                            if (dir.Substring(dir.LastIndexOf("\\")+1).StartsWith("4."))
                             {
                                 success = true;
                                 break;
                             }
                         }
 
-                        Console.WriteLine("Directory contains no Unreal Engine installations.\n");
+                        if (!success)
+                            Console.WriteLine("Directory contains no Unreal Engine installations.\n");
                     }
 
                 } while (!success);
+
+                Console.WriteLine();
             }
             else
             {
