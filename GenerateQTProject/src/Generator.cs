@@ -232,12 +232,9 @@ namespace GenerateQTProject
             UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
             UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
 
-            // Retrieve Unreal Engine directory (try to retrieve from registry, if not possible, from user input)
-            RegistryKey ue4InstallKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(@"Software\EpicGames\Unreal Engine");
-            if (ue4InstallKey == null)
-                ue4InstallKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"Software\EpicGames\Unreal Engine");
-
-            if (ue4InstallKey == null || ue4InstallKey.GetValue("INSTALLDIR") == null)
+            // Retrieve Unreal Engine directory (try to retrieve from stored value)
+            string path = FileActions.getUnrealPath();
+            if (FileActions.getUnrealPath() == "") // no value stored yet
             {
                 bool success = false;
 
@@ -271,11 +268,14 @@ namespace GenerateQTProject
 
                 } while (!success);
 
+                // store path for future use
+                FileActions.storeUnrealPath(UNREAL_PATH);
+
                 Console.WriteLine();
             }
             else
             {
-                UNREAL_PATH = ue4InstallKey.GetValue("INSTALLDIR").ToString();
+                UNREAL_PATH = path;
             }
 
             // Add version to path --> complete path

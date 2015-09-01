@@ -32,6 +32,7 @@ namespace GenerateQTProject
     /// </summary>
     class FileActions
     {
+        const string UNREAL_PATH_FILENAME = "UnrealPath.txt";
         /// <summary>
         /// Extract project name from sln filename
         /// </summary>
@@ -57,6 +58,33 @@ namespace GenerateQTProject
             }
 
             return projectName;
+        }
+
+        public static void storeUnrealPath(string Path)
+        {
+            try
+            {
+                File.WriteAllText(UNREAL_PATH_FILENAME, Path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Path couldn't be stored");
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
+        public static string getUnrealPath()
+        {
+            if (!File.Exists(UNREAL_PATH_FILENAME))
+                return "";
+            else
+            {
+                string path = File.ReadAllText(UNREAL_PATH_FILENAME);
+                if (Directory.Exists(path) && path.Contains("Epic Games"))
+                    return path;
+                else
+                    return "";
+            }
         }
 
         /// <summary>
