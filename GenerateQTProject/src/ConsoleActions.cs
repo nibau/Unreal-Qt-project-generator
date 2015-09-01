@@ -129,7 +129,7 @@ namespace GenerateQTProject
         {
             Console.WriteLine();
             Console.WriteLine("***********************************************");
-            Console.WriteLine("****** Unreal Qt Project Generator v0.2c ******");
+            Console.WriteLine("****** Unreal Qt Project Generator v0.2d ******");
             Console.WriteLine("******            ©2015 AlphaN           ******");
             Console.WriteLine("******     Special Thanks to Antares     ******");
             Console.WriteLine("***********************************************");
