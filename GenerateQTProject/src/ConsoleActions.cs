@@ -47,10 +47,10 @@ namespace GenerateQTProject
                 Console.WriteLine("Please enter path to the directory where your .uproject file is located (drag and drop folder here):");
                 projDir = Console.ReadLine();
 
+                projDir = projDir.Replace("\"", "");
+
                 if (projDir.EndsWith("\\"))
                     projDir = projDir.Remove(projDir.LastIndexOf("\\"));
-
-                projDir = projDir.Replace("\"", "");
 
                 if (Directory.Exists(projDir))
                 {
