@@ -11,6 +11,8 @@ The tool can generate .pro files with:
   <li>additional Cook target (allows to cook content for standalone builds)</li>
 </ul>
 
+Unreal Engine projects can be debugged with CDB (GDB not supported).
+
 For more information and a tutorial how to setup QtCreator see this post:
 https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
 
