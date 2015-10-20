@@ -8,7 +8,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -23,7 +23,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -49,7 +49,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -64,7 +64,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -90,7 +90,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -105,7 +105,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -131,7 +131,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -146,7 +146,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -172,7 +172,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -iterate -silent</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -198,7 +198,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">&quot;$UPROJ_FILE&quot; -run=cook -targetplatform=WindowsNoEditor -silent</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Binaries/Win64/UE4Editor.exe</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -207,7 +207,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
@@ -222,7 +222,7 @@
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR/Intermediate/Build</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
