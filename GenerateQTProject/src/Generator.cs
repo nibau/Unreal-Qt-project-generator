@@ -264,50 +264,6 @@ namespace GenerateQTProject
             }
             else // custom commands only for 
                 UNREAL_PATH = Configuration.data.customEngines[customCommand];
-            
-            /*else // no value stored yet
-            {
-                bool success = false;
-
-                do
-                {
-                    Console.WriteLine("\nUnreal Engine 4 installation not found, please enter Unreal Engine 4 base directory (that one with the 4.x folders in it): ");
-                    UNREAL_PATH = Console.ReadLine();
-                    UNREAL_PATH = UNREAL_PATH.Replace("\"", "");
-
-                    if (!UNREAL_PATH.EndsWith("\\"))
-                        UNREAL_PATH = UNREAL_PATH + "\\";
-
-                    if (!Directory.Exists(UNREAL_PATH))
-                    {
-                        Console.WriteLine("Invalid Directory\n");
-                    }
-                    else
-                    {
-                        foreach (string dir in Directory.GetDirectories(UNREAL_PATH))
-                        {
-                            if (dir.Substring(dir.LastIndexOf("\\")+1).StartsWith("4."))
-                            {
-                                success = true;
-                                break;
-                            }
-                        }
-
-                        if (!success)
-                            Console.WriteLine("Directory contains no Unreal Engine installations.\n");
-                    }
-
-                } while (!success);
-
-                // store path for future use
-                Configuration.storeDefaultUnrealPath(UNREAL_PATH);
-                Console.WriteLine();
-            }*/
-
-            
-            
-
-
 
             // Load user file preset
             String qtBuildPreset = File.ReadAllText("qtBuildPreset.xml");

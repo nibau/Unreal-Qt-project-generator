@@ -23,6 +23,8 @@
 
 using System;
 using System.IO;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace GenerateQTProject
 {
@@ -75,7 +77,146 @@ namespace GenerateQTProject
 
         public static void StartConfigWizard()
         {
+            ConfigurationData newConfig = new ConfigurationData();
 
+            Console.WriteLine("It seems that you run this program for the first time as no configuration file was found.\n");
+            Console.WriteLine("This wizard will will help you with the initial configuration of the project generator.\n\n");
+
+            Console.WriteLine("1. First you have to enter the path to your primary Unreal Engine installation directory.\nIn case of the launcher version please select the launcher directory which contains the different 4.x folders. If you want to use a custom engine build (from git), please select the base directory of the installation (which contains Engine, Templates, etc. folders).\n");
+            Console.WriteLine("If you want to use both (launcher and custom builds) for project file generation, select the launcher path as you can later on add custom commands to the configuration file.");
+            Console.WriteLine("Custom commands consist of a command_name/engine_installation_directory pair (only for git engine builds). When you want to generate a project file for a custom engine build, it then suffices to launch the project generator with the command_name as argument.");
+            Console.WriteLine("\neg. if you have in your configuration file (CustomEngineProfiles section) the line: myAwesomeBuild=C:\\Unreal\\myAwesomeEngineBuildPath");
+            Console.WriteLine("You can generate the project files for myAwesomeEngineBuild by launching UnrealQtProjectGenerator with the argument myAwesomeBuild.");
+
+            var path = InputEnginePath(true);
+            newConfig.isLauncherPath = path.Item1;
+            newConfig.defaultEnginePath = path.Item2;
+
+
+            Console.WriteLine("\n\n2. Now the generator needs your Qt environment id as well as the id of your Unreal Engine build kit (which you should already have created).");
+            Console.WriteLine("To make this as simple as possible, this tool will now generate an empty .pro file and will then open it.");
+            Console.WriteLine("The only thing you have to do is 1. select your Unreal Engine build kit when asked by QtCreator, 2. Hit the configure project button, 3. close QtCreator.\n");
+            Console.WriteLine("Please make sure that QtCreator is not currently running, then press enter to proceed...");
+            Console.ReadLine();
+
+            File.WriteAllText(FileActions.PROGRAM_DIR + "temp.pro", "");
+            Process qtCreatorProcess = Process.Start(FileActions.PROGRAM_DIR + "temp.pro");
+            Console.WriteLine("QtCreator launched...");
+            qtCreatorProcess.WaitForExit();
+            Console.WriteLine("QtCreator closed...\n");
+
+            if (!File.Exists(FileActions.PROGRAM_DIR + "temp.pro.user"))
+            {
+                Console.WriteLine("\nERROR: No .pro.user file was generated, cannot proceede (you can also edit the configuration file manually).");
+                Console.WriteLine(" - press enter to quit...");
+                Console.ReadLine();
+                Environment.Exit(15);
+            }
+
+            string userContent = "";
+            try
+            {
+                userContent = File.ReadAllText(FileActions.PROGRAM_DIR + "temp.pro.user");
+            }
+            catch
+            {
+                Console.WriteLine("\nERROR: Error while reading .pro.user file.");
+                Console.WriteLine(" - press enter to quit...");
+                Console.ReadLine();
+                Environment.Exit(16);
+            }
+
+            try
+            {
+                File.Delete(FileActions.PROGRAM_DIR + "temp.pro.user");
+                File.Delete(FileActions.PROGRAM_DIR + "temp.pro");
+            }
+            catch
+            {
+                Console.WriteLine("\nERROR: Error while deleting temporary pro file.");
+            }
+
+            const string middle_env_id_pattern = "\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}";
+
+            string qtEnvId = Regex.Match(userContent, "\\<variable\\>EnvironmentId\\</variable\\>[\\w]*\n[\\w]*\\<value type=\"QByteArray\"\\>\\(?<id>" + middle_env_id_pattern + ")").Groups["id"].Value;
+            string qtConfId = Regex.Match(userContent, "key=\"ProjectExplorer.ProjectConfiguration.Id\"\\>(?<id>" + middle_env_id_pattern + ")").Groups["id"].Value;
+
+            if (Configuration.IsValidQtId(qtEnvId))
+                newConfig.qtCreatorEnvironmentId = qtEnvId;
+            else
+            {
+                Console.WriteLine("\nERROR: Error while reading environment id from user file.");
+                Console.WriteLine(" - press enter to quit...");
+                Console.ReadLine();
+                Environment.Exit(17);
+            }
+
+            if (Configuration.IsValidQtId(qtConfId))
+                newConfig.qtCreatorUnrealConfigurationId = qtConfId;
+            else
+            {
+                Console.WriteLine("\nERROR: Error while reading configuration id from user file.");
+                Console.WriteLine(" - press enter to quit...");
+                Console.ReadLine();
+                Environment.Exit(18);
+            }
+
+            if (!Configuration.writeWizardConfig(newConfig))
+            {
+                Console.WriteLine("\nERROR: Error while writing configuration file.");
+                Console.WriteLine(" - press enter to quit...");
+                Console.ReadLine();
+                Environment.Exit(19);
+            }
+        }
+
+        private static Tuple<bool, string> InputEnginePath(bool allowLauncher)
+        {
+            string uPath = "";
+            bool launcherPath = false;
+
+            bool success = false;
+            do
+            {
+                Console.WriteLine("\nPlease enter Unreal Engine Path:");
+                uPath = Console.ReadLine();
+                uPath = uPath.Replace("\"", "");
+
+                if (!uPath.EndsWith("\\"))
+                    uPath = uPath + "\\";
+
+                if (!Directory.Exists(uPath))
+                {
+                    Console.WriteLine("Invalid Directory\n");
+                }
+                else
+                {
+                    if (allowLauncher && uPath.Contains("Epic Games"))
+                    {
+                        foreach (string dir in Directory.GetDirectories(uPath))
+                        {
+                            if (dir.Substring(dir.LastIndexOf("\\") + 1).StartsWith("4.") && File.Exists(dir + @"Engine\Build\BatchFiles\build.bat"))
+                            {
+                                success = true;
+                                launcherPath = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (File.Exists(uPath + @"Engine\Build\BatchFiles\build.bat")) {
+                        success = true;
+                        break;
+                    }
+
+
+                    if (!success)
+                        Console.WriteLine("Directory contains no Unreal Engine installations.\n");
+                }
+
+            } while (!success);
+
+            return new Tuple<bool, string>(launcherPath, uPath);
         }
 
         /// <summary>

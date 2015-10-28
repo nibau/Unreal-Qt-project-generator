@@ -25,11 +25,11 @@ namespace GenerateQTProject
         public static string CONFIG_FILE_NAME { get; } = "UnrealProjectGenerator.ini";
         public static ConfigurationData data;
 
-        const string env_id_pattern = "^\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}$";
+        const string ENV_ID_PATTERN = "^\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}$";
 
-        public static void StoreDefaultUnrealPath(string path)
+        public static bool IsValidQtId(string id)
         {
-
+            return Regex.Match(id, ENV_ID_PATTERN).Success;
         }
 
         public static bool HasConfigurationFile()
@@ -88,7 +88,7 @@ namespace GenerateQTProject
                         {
                             data.isLauncherPath = Convert.ToBoolean(key_val_pair[1].ToLower());
                         }
-                        catch (Exception e)
+                        catch
                         {
                             Console.WriteLine("CONFIG ERROR: Invalid launcher_path value in configuration file. (has to be TRUE or FALSE)");
                             return false;
@@ -96,7 +96,7 @@ namespace GenerateQTProject
                         break;
                     case "qt_environment_id":
                         data.qtCreatorEnvironmentId = key_val_pair[1];
-                        if (!Regex.Match(data.qtCreatorEnvironmentId, env_id_pattern).Success)
+                        if (!Regex.Match(data.qtCreatorEnvironmentId, ENV_ID_PATTERN).Success)
                         {
                             Console.WriteLine("CONFIG ERROR: Invalid QtCreator environment ID set.");
                             return false;
@@ -104,7 +104,7 @@ namespace GenerateQTProject
                         break;
                     case "unreal_project_configuration_id":
                         data.qtCreatorUnrealConfigurationId = key_val_pair[1];
-                        if (!Regex.Match(data.qtCreatorUnrealConfigurationId, env_id_pattern).Success)
+                        if (!Regex.Match(data.qtCreatorUnrealConfigurationId, ENV_ID_PATTERN).Success)
                         {
                             Console.WriteLine("CONFIG ERROR: Invalid QtCreator configuration ID set.");
                             return false;
@@ -159,6 +159,39 @@ namespace GenerateQTProject
             return true;
         }
 
-        public static string defaultConfigurationFile {get;} = "'For complete automation of the project file generation, engine path and QtCreator environment hash have to be filled in below manually for a single time\r\n\r\n' this sets the settings for the default Unreal Engine installation (either launcher or git version)\r\n[Default]\r\n'if launcher_path = TRUE, engine_path should point to the launcher path with the 4.x folders in it\r\n'if launcher_path = FALSE (useful if you want to use a custom engine build), engine_path should point to the base directory of the Unreal Engine installation\r\n' (contains Engine, FeaturePacks, Samples, Templates, ... folders)\r\nlauncher_path=TRUE\r\nengine_path=/path/to/unreal/installation\r\n\r\n'This hash can be found\r\nqt_environment_id={945faeb2-deb5-4c66-9adb-ee13b5882df2}\r\nunreal_project_configuration_name=Unreal Engine 4\r\nunreal_project_configuration_id={567d7386-8d59-448f-befc-8a074fa8675d}\r\n\r\n' Use this section if you want to use additional git versions (without launcher) of Unreal Engine 4 for some projects.\r\n' Each entry consists of a path and a name\r\n' The name has to be entered as argument when you run the project generator in a project folder\r\n[CustomEngineProfiles]\r\n'NAME=Path/to/git/engine (\r\n\r\n'eg.\r\n'customEngineBuild=C:/UnrealEngine/my build\r\n' -> can be used with command UnrealProjectGenerator customEngineBuild";
+        public static bool writeWizardConfig(ConfigurationData data)
+        {
+            string file = "";
+            file += "' This sets the settings for the default Unreal Engine installation (either launcher or git version)\n";
+            file += "[Default]\n\n";
+            file += "' If launcher_path = TRUE, default_engine_path should point to the launcher path with the 4.x folders in it\n";
+            file += "' If launcher_path = FALSE (useful if you want to use a custom engine build), default_engine_path should point\n";
+            file += "' to the base directory of the Unreal Engine installation (contains Engine, FeaturePacks, Samples, Templates, ... folders)\n";
+            file += "launcher_path = " + data.isLauncherPath.ToString() + "\n";
+            file += "default_engine_path = " + data.defaultEnginePath + "\n\n";
+            file += "' These values can be found in a .pro.user file of a project on this computer which uses (exclusively) your Unreal Engine build kit.\n";
+            file += "qt_environment_id = " + data.qtCreatorEnvironmentId + "\n";
+            file += "unreal_project_configuration_id = " + data.qtCreatorUnrealConfigurationId + "\n\n";
+            file += "' Use this section if you want to use additional git versions (without launcher) of Unreal Engine 4 for some projects.\n";
+            file += "' Each entry consists of a command name and a path\n";
+            file += "' The name has to be entered as argument when you run the project generator in a project folder\n\n";
+            file += "[CustomEngineProfiles]\n\n";
+            file += "' example:\n";
+            file += "'\tcustomEngineBuild = C:\\UnrealEngine\\myBuild\n";
+            file += "' ->can be used with command UnrealProjectGenerator customEngineBuild";
+
+            try
+            {
+                File.WriteAllText(FileActions.PROGRAM_DIR + CONFIG_FILE_NAME, file);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
+
+
 }
