@@ -62,7 +62,10 @@ namespace GenerateQTProject
                 line = config[i];
 
                 // ignore comments
-                line = line.Remove(line.IndexOf('\'')).Trim();
+                if (line.Contains("\'"))
+                    line = line.Remove(line.IndexOf('\''));
+
+                line = line.Trim();
 
                 if (line.StartsWith("[CustomEngineProfiles]"))
                     customSection = true;
@@ -129,7 +132,7 @@ namespace GenerateQTProject
             {           
                 foreach (string dir in Directory.GetDirectories(data.defaultEnginePath))
                 {
-                    if (dir.StartsWith("4."))
+                    if (dir.Substring(dir.LastIndexOf("\\") + 1).StartsWith("4.") && File.Exists(dir + @"\Engine\Build\BatchFiles\build.bat"))
                     {
                         valid = true;
                         break;
@@ -138,7 +141,7 @@ namespace GenerateQTProject
             }
             else
             {
-                if (Directory.Exists(data.defaultEnginePath + "Engine"))
+                if (Directory.Exists(data.defaultEnginePath + @"Engine\Build\BatchFiles\build.bat"))
                     valid = true;
             }
 
@@ -162,22 +165,22 @@ namespace GenerateQTProject
         public static bool writeWizardConfig(ConfigurationData data)
         {
             string file = "";
-            file += "' This sets the settings for the default Unreal Engine installation (either launcher or git version)\n";
-            file += "[Default]\n\n";
-            file += "' If launcher_path = TRUE, default_engine_path should point to the launcher path with the 4.x folders in it\n";
-            file += "' If launcher_path = FALSE (useful if you want to use a custom engine build), default_engine_path should point\n";
-            file += "' to the base directory of the Unreal Engine installation (contains Engine, FeaturePacks, Samples, Templates, ... folders)\n";
-            file += "launcher_path = " + data.isLauncherPath.ToString() + "\n";
-            file += "default_engine_path = " + data.defaultEnginePath + "\n\n";
-            file += "' These values can be found in a .pro.user file of a project on this computer which uses (exclusively) your Unreal Engine build kit.\n";
-            file += "qt_environment_id = " + data.qtCreatorEnvironmentId + "\n";
-            file += "unreal_project_configuration_id = " + data.qtCreatorUnrealConfigurationId + "\n\n";
-            file += "' Use this section if you want to use additional git versions (without launcher) of Unreal Engine 4 for some projects.\n";
-            file += "' Each entry consists of a command name and a path\n";
-            file += "' The name has to be entered as argument when you run the project generator in a project folder\n\n";
-            file += "[CustomEngineProfiles]\n\n";
-            file += "' example:\n";
-            file += "'\tcustomEngineBuild = C:\\UnrealEngine\\myBuild\n";
+            file += "' This sets the settings for the default Unreal Engine installation (either launcher or git version)\r\n";
+            file += "[Default]\r\n\r\n";
+            file += "' If launcher_path = TRUE, default_engine_path should point to the launcher path with the 4.x folders in it\r\n";
+            file += "' If launcher_path = FALSE (useful if you want to use a custom engine build), default_engine_path should point\r\n";
+            file += "' to the base directory of the Unreal Engine installation (contains Engine, FeaturePacks, Samples, Templates, ... folders)\r\n";
+            file += "launcher_path = " + data.isLauncherPath.ToString() + "\r\n";
+            file += "default_engine_path = " + data.defaultEnginePath + "\r\n\r\n";
+            file += "' These values can be found in a .pro.user file of a project on this computer which uses (exclusively) your Unreal Engine build kit.\r\n";
+            file += "qt_environment_id = " + data.qtCreatorEnvironmentId + "\r\n";
+            file += "unreal_project_configuration_id = " + data.qtCreatorUnrealConfigurationId + "\r\n\r\n";
+            file += "' Use this section if you want to use additional git versions (without launcher) of Unreal Engine 4 for some projects.\r\n";
+            file += "' Each entry consists of a command name and a path\r\n";
+            file += "' The name has to be entered as argument when you run the project generator in a project folder\r\n";
+            file += "[CustomEngineProfiles]\r\n\r\n";
+            file += "' example:\r\n";
+            file += "'\tcustomEngineBuild = C:\\UnrealEngine\\myBuild\r\n";
             file += "' ->can be used with command UnrealProjectGenerator customEngineBuild";
 
             try
