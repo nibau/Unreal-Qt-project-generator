@@ -1,3 +1,21 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QtCreatorProject>
+<!-- Written by QtCreator 3.5.0, 2015-10-27T17:53:59. -->
+<qtcreator>
+ <data>
+  <variable>EnvironmentId</variable>
+  <value type="QByteArray">$QT_ENV_ID</value>
+ </data>
+ <data>
+  <variable>ProjectExplorer.Project.ActiveTarget</variable>
+  <value type="int">0</value>
+ </data>
+ <data>
+  <variable>ProjectExplorer.Project.Target.0</variable>
+  <valuemap type="QVariantMap">
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Unreal Engine 4</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Unreal Engine 4</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">$QT_CONF_ID</value>
  <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">2</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">4</value>
@@ -6,7 +24,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -21,7 +39,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -47,7 +65,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -62,7 +80,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 DebugGame &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -88,7 +106,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -103,7 +121,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAMEEditor Win64 Development &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -129,7 +147,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -144,7 +162,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win64 Development &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -205,7 +223,7 @@
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Build.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -220,7 +238,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">$PROJECT_NAME Win32 Shipping &quot;$UPROJ_FILE&quot; -rocket -waitmutex</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">$UNREAL_PATH/Engine/Build/BatchFiles/Clean.bat</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">$PROJECT_DIR</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom process step</value>
@@ -515,3 +533,15 @@
   </valuemap>
  </data>
  <data>
+  <variable>ProjectExplorer.Project.TargetCount</variable>
+  <value type="int">1</value>
+ </data>
+ <data>
+  <variable>ProjectExplorer.Project.Updater.FileVersion</variable>
+  <value type="int">14</value>
+ </data>
+ <data>
+  <variable>Version</variable>
+  <value type="int">14</value>
+ </data>
+</qtcreator>

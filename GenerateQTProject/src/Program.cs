@@ -29,15 +29,30 @@ namespace GenerateQTProject
     class Program
     {
         static void Main(string[] args)
-        {
+        {         
             FileActions.CheckIfPresetFilePresent();
 
-            ConsoleActions.PrintHeader();
-
-            ConsoleActions.DisplayFirstRunDisclaimer();
-
-            string projectDir = ConsoleActions.InputProjectPath();
+            string projectDir = "";
             string projectName = "";
+
+            if (!Configuration.LoadConfiguration())
+            {
+                ConsoleActions.PrintHeader();
+                Console.WriteLine("No valid configuration found. The configuration file will now open and you have to set at least the entries in the default section to match your configuration. After you have saved your configuration, please rerun the tool.\nTo open the configuration file, press enter...");
+                Console.ReadLine();
+                FileActions.OpenConfigFile();
+                Environment.Exit(0);
+            }
+
+            projectDir = FileActions.lookForProjectInWD();
+
+            if (projectDir == "")
+            {
+                ConsoleActions.PrintHeader();
+                ConsoleActions.DisplayFirstRunDisclaimer();
+                projectDir = ConsoleActions.InputProjectPath();            
+            }
+
             projectName = FileActions.ExtractProjectName(projectDir);
 
             Console.WriteLine();

@@ -32,7 +32,26 @@ namespace GenerateQTProject
     /// </summary>
     class FileActions
     {
-        const string UNREAL_PATH_FILENAME = "UnrealPath.txt";
+        public static string program_dir { get; } = AppDomain.CurrentDomain.BaseDirectory;
+
+        public static void OpenConfigFile()
+        {
+            if (!File.Exists(program_dir + Configuration.config_file_name))
+                File.WriteAllText(program_dir + Configuration.config_file_name, Configuration.defaultConfigurationFile);
+
+            try
+            {
+                System.Diagnostics.Process.Start(program_dir + "UnrealProjectGenerator.ini");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: An error occurred when trying to open the configuration file.");
+                Environment.Exit(10);
+            }
+        }
+
+        //const string UNREAL_PATH_FILENAME = "UnrealPath.txt";
+
         /// <summary>
         /// Extract project name from sln filename
         /// </summary>
@@ -60,31 +79,17 @@ namespace GenerateQTProject
             return projectName;
         }
 
-        public static void storeUnrealPath(string Path)
+        public static string lookForProjectInWD()
         {
-            try
+            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
             {
-                File.WriteAllText(UNREAL_PATH_FILENAME, Path);
+                if (file.EndsWith(".uproject"))
+                {
+                    return Directory.GetCurrentDirectory();
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Path couldn't be stored");
-                Console.WriteLine(ex.StackTrace);
-            }
-        }
 
-        public static string getUnrealPath()
-        {
-            if (!File.Exists(UNREAL_PATH_FILENAME))
-                return "";
-            else
-            {
-                string path = File.ReadAllText(UNREAL_PATH_FILENAME);
-                if (Directory.Exists(path) && path.Contains("Epic Games"))
-                    return path;
-                else
-                    return "";
-            }
+            return "";
         }
 
         /// <summary>
@@ -92,7 +97,7 @@ namespace GenerateQTProject
         /// </summary>
         public static void CheckIfPresetFilePresent()
         {
-            if (!File.Exists("qtBuildPreset.xml"))
+            if (!File.Exists(program_dir + "qtBuildPreset.xml"))
             {
                 Console.WriteLine("qtBuildPreset.xml (has to be in same folder as this .exe) file is missing.  - Press enter to quit...");
                 Console.ReadLine();

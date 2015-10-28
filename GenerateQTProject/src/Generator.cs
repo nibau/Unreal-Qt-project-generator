@@ -53,12 +53,12 @@ namespace GenerateQTProject
                 Console.WriteLine("\nERROR: No .sln file found.\n");
                 return false;
             }
-            else if (!File.Exists(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".vcxproj"))
+            else if (!File.Exists(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".vcxproj"))
             {
                 Console.WriteLine("\nERROR: .vcxproj file not found, name doesn't match .sln file name.\n");
                 return false;
             }
-            else if (!File.Exists(projectDir + "\\" + projectName + ".uproject"))
+            else if (!File.Exists(projectDir + projectName + ".uproject"))
             {
                 Console.WriteLine("\nERROR: .uproject file not found, name doesn't match .sln file name.\n");
                 return false;
@@ -72,7 +72,7 @@ namespace GenerateQTProject
                 SourceFilePaths = new List<string>();
                 HeaderFilePaths = new List<string>();
 
-                FileActions.ScanDirectoryForFiles(SourceFilePaths, HeaderFilePaths, projectDir + "\\Source\\" + projectName, projectName);
+                FileActions.ScanDirectoryForFiles(SourceFilePaths, HeaderFilePaths, projectDir + "Source\\" + projectName, projectName);
             }
 
 
@@ -111,7 +111,7 @@ namespace GenerateQTProject
             "include(includes.pri)";
 
             // Add build.cs as additional file
-            if (File.Exists(projectDir + "\\Source\\" + projectName + "\\" + projectName + ".Build.cs"))
+            if (File.Exists(projectDir + "Source\\" + projectName + "\\" + projectName + ".Build.cs"))
             {
                 qtProFile = qtProFile + "\n\n" +
                 "DISTFILES += \\\n\t" +
@@ -120,7 +120,7 @@ namespace GenerateQTProject
 
             try
             {
-                File.WriteAllText(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro", qtProFile);
+                File.WriteAllText(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".pro", qtProFile);
                 return true;
             }
             catch (Exception ex)
@@ -145,7 +145,7 @@ namespace GenerateQTProject
             string vcxText = "";
             try
             {
-                vcxText = File.ReadAllText(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".vcxproj");
+                vcxText = File.ReadAllText(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".vcxproj");
             }
             catch (Exception ex)
             {
@@ -180,8 +180,8 @@ namespace GenerateQTProject
             // Write files
             try
             {
-                File.WriteAllText(projectDir + "\\Intermediate\\ProjectFiles\\defines.pri", definesString);
-                File.WriteAllText(projectDir + "\\Intermediate\\ProjectFiles\\includes.pri", includesString);
+                File.WriteAllText(projectDir + "Intermediate\\ProjectFiles\\defines.pri", definesString);
+                File.WriteAllText(projectDir + "Intermediate\\ProjectFiles\\includes.pri", includesString);
             } catch(Exception ex)
             {
                 Console.WriteLine("\nERROR: Couldn't write defines and include files.\n");
@@ -211,7 +211,12 @@ namespace GenerateQTProject
             string UPROJ_FILE,
             UNREAL_PATH,
             PROJECT_DIR,
-            PROJECT_NAME;
+            PROJECT_NAME,
+            QT_ENV_ID,
+            QT_CONF_ID;
+
+            QT_ENV_ID = Configuration.data.qtCreatorEnvironmentId;
+            QT_CONF_ID = Configuration.data.qtCreatorUnrealConfigurationId;
 
             // Set project name
             PROJECT_NAME = projectName;
@@ -220,7 +225,7 @@ namespace GenerateQTProject
             PROJECT_DIR = projectDir;
 
             // Set project file path
-            UPROJ_FILE = projectDir + "\\" + projectName + ".uproject";
+            UPROJ_FILE = projectDir + projectName + ".uproject";
             if (!File.Exists(UPROJ_FILE))
             {
                 Console.WriteLine("\nERROR: .uproject file not found.\n");
@@ -233,8 +238,9 @@ namespace GenerateQTProject
             UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
 
             // Retrieve Unreal Engine directory (try to retrieve from stored value)
-            string path = FileActions.getUnrealPath();
-            if (FileActions.getUnrealPath() == "") // no value stored yet
+            UNREAL_PATH = Configuration.data.defaultEnginePath;
+            
+            /*else // no value stored yet
             {
                 bool success = false;
 
@@ -269,14 +275,9 @@ namespace GenerateQTProject
                 } while (!success);
 
                 // store path for future use
-                FileActions.storeUnrealPath(UNREAL_PATH);
-
+                Configuration.storeDefaultUnrealPath(UNREAL_PATH);
                 Console.WriteLine();
-            }
-            else
-            {
-                UNREAL_PATH = path;
-            }
+            }*/
 
             // Add version to path --> complete path
             UNREAL_PATH += UnrealVersion;
@@ -298,6 +299,16 @@ namespace GenerateQTProject
             qtBuildPreset = qtBuildPreset.Replace("$UPROJ_FILE", UPROJ_FILE);
             qtBuildPreset = qtBuildPreset.Replace("$UNREAL_PATH", UNREAL_PATH);
 
+            qtBuildPreset = qtBuildPreset.Replace("$QT_ENV_ID", QT_ENV_ID);
+            qtBuildPreset = qtBuildPreset.Replace("$QT_CONF_ID", QT_CONF_ID);
+
+            // remove -rocket for custom engine builds
+            if (!Configuration.data.isLauncherPath) // || isCustomBuild
+            {
+                qtBuildPreset = qtBuildPreset.Replace("-rocket", "");
+            }
+
+            /*
             Console.WriteLine("Before proceeding, make sure that QT Creator is closed and that .pro files are associated with it.\n");
             Console.WriteLine(" - Press Enter to proceed...");
             Console.ReadLine();
@@ -331,22 +342,26 @@ namespace GenerateQTProject
             string currentQTProFile = File.ReadAllText(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro.user");
             string headerPart, footerPart;
 
+            */
+
             /*     
                IMPORTANT: The following part is a hacky solution, if Qt changes anything in the layout of the proj.pro.user file this may break (I think that proj.pro.user file is not intended to be modified by the user)
                But since this file seems to be (?) the only place where QtCreator stores build presets and launch targets (debug game, development editor, shipping, etc...) this is probably (?) the only option.
             */
 
             // Retrieve the parts not concerning build configurations (because Qt Creator has some ids in there which mustn't be changed)
-            headerPart = currentQTProFile.Substring(0, currentQTProFile.IndexOf("<value type=\"int\" key=\"ProjectExplorer.Target.ActiveBuildConfiguration\">"));
-            footerPart = currentQTProFile.Remove(0, currentQTProFile.IndexOf("<variable>ProjectExplorer.Project.TargetCount</variable>") - 1);
+            //headerPart = currentQTProFile.Substring(0, currentQTProFile.IndexOf("<value type=\"int\" key=\"ProjectExplorer.Target.ActiveBuildConfiguration\">"));
+            //footerPart = currentQTProFile.Remove(0, currentQTProFile.IndexOf("<variable>ProjectExplorer.Project.TargetCount</variable>") - 1);
 
             // Combine parts to a complete but modified user file
-            qtBuildPreset = headerPart + qtBuildPreset + "\n" + footerPart;
+            //qtBuildPreset = headerPart + qtBuildPreset + "\n" + footerPart;
+
+            
 
             // Write new user file
             try
             {
-                File.WriteAllText(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro.user", qtBuildPreset);
+                File.WriteAllText(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".pro.user", qtBuildPreset);
             }
             catch (Exception ex)
             {
@@ -357,7 +372,7 @@ namespace GenerateQTProject
                 Environment.Exit(3);
             }
 
-            Console.WriteLine("User file modification successful");
+            Console.WriteLine("User file written sucessfully.");
 
             return true;
         }

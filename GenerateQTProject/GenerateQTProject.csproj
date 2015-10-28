@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Configuration.cs" />
     <Compile Include="src\ConsoleActions.cs" />
     <Compile Include="src\FileActions.cs" />
     <Compile Include="src\Generator.cs" />
@@ -85,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="src\UnrealProjectGenerator.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="qtBuildPreset.xml">
