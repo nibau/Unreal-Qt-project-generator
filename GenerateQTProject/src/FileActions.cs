@@ -36,16 +36,13 @@ namespace GenerateQTProject
 
         public static void OpenConfigFile()
         {
-            if (!File.Exists(PROGRAM_DIR + Configuration.CONFIG_FILE_NAME))
-                File.WriteAllText(PROGRAM_DIR + Configuration.CONFIG_FILE_NAME, Configuration.defaultConfigurationFile);
-
             try
             {
                 System.Diagnostics.Process.Start(PROGRAM_DIR + "UnrealProjectGenerator.ini");
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine("ERROR: An error occurred when trying to open the configuration file.");
+                Console.WriteLine("ERROR: An error occurred while trying to open the configuration file.");
                 Environment.Exit(10);
             }
         }
