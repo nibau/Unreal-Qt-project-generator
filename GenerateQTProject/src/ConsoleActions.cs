@@ -49,8 +49,8 @@ namespace GenerateQTProject
 
                 projDir = projDir.Replace("\"", "");
 
-                if (projDir.EndsWith("\\"))
-                    projDir = projDir.Remove(projDir.LastIndexOf("\\"));
+                if (!projDir.EndsWith("\\"))
+                    projDir += "\\";
 
                 if (Directory.Exists(projDir))
                 {
@@ -127,6 +127,7 @@ namespace GenerateQTProject
         /// </summary>
         public static void PrintHeader()
         {
+            Console.Clear();
             Console.WriteLine();
             Console.WriteLine("***********************************************");
             Console.WriteLine("****** Unreal Qt Project Generator v0.2d ******");
