@@ -42,6 +42,11 @@ namespace GenerateQTProject
             if (!Configuration.HasConfigurationFile())
             {
                 ConsoleActions.StartConfigWizard();
+                ConsoleActions.PrintHeader();
+                Console.WriteLine("Configuration file written sucessfully.\n");
+                Console.WriteLine("The tool should from now on work automatically. Just launch it from inside your project folder (so that the working directory matches the project folder)");
+                Console.ReadLine();
+                return;
             }
             else if (!Configuration.LoadConfiguration())
             {
@@ -58,8 +63,9 @@ namespace GenerateQTProject
             }
 
             projectDir = FileActions.lookForProjectInWD();
+            projectDir += "\\";
 
-            if (projectDir == "") // working directory isn't a project directory
+            if (projectDir == "\\") // working directory isn't a project directory
             {
                 ConsoleActions.PrintHeader();
                 

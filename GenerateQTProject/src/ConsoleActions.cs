@@ -77,23 +77,25 @@ namespace GenerateQTProject
 
         public static void StartConfigWizard()
         {
+            PrintHeader();
             ConfigurationData newConfig = new ConfigurationData();
 
             Console.WriteLine("It seems that you run this program for the first time as no configuration file was found.\n");
             Console.WriteLine("This wizard will will help you with the initial configuration of the project generator.\n\n");
 
             Console.WriteLine("1. First you have to enter the path to your primary Unreal Engine installation directory.\nIn case of the launcher version please select the launcher directory which contains the different 4.x folders. If you want to use a custom engine build (from git), please select the base directory of the installation (which contains Engine, Templates, etc. folders).\n");
-            Console.WriteLine("If you want to use both (launcher and custom builds) for project file generation, select the launcher path as you can later on add custom commands to the configuration file.");
-            Console.WriteLine("Custom commands consist of a command_name/engine_installation_directory pair (only for git engine builds). When you want to generate a project file for a custom engine build, it then suffices to launch the project generator with the command_name as argument.");
-            Console.WriteLine("\neg. if you have in your configuration file (CustomEngineProfiles section) the line: myAwesomeBuild=C:\\Unreal\\myAwesomeEngineBuildPath");
-            Console.WriteLine("You can generate the project files for myAwesomeEngineBuild by launching UnrealQtProjectGenerator with the argument myAwesomeBuild.");
+            Console.WriteLine("If you want to use both (launcher and custom builds) for project file generation, select the launcher path as you can add custom commands for git builds to the configuration file. (see comments in config file)");
+            //Console.WriteLine("Custom commands consist of a command_name/engine_installation_directory pair (only for git engine builds). When you want to generate a project file for a custom engine build, it then suffices to launch the project generator with the command_name as argument.");
+            //Console.WriteLine("\neg. if you have in your configuration file (CustomEngineProfiles section) the line: myAwesomeBuild=C:\\Unreal\\myAwesomeEngineBuildPath");
+            //Console.WriteLine("You can generate the project files for myAwesomeEngineBuild by launching UnrealQtProjectGenerator with the argument myAwesomeBuild.");
 
             var path = InputEnginePath(true);
             newConfig.isLauncherPath = path.Item1;
             newConfig.defaultEnginePath = path.Item2;
 
+            PrintHeader();
 
-            Console.WriteLine("\n\n2. Now the generator needs your Qt environment id as well as the id of your Unreal Engine build kit (which you should already have created).");
+            Console.WriteLine("\n\n2. Now the generator needs your Qt environment id as well as the id of your Unreal Engine build kit (which you should already have created).\n");
             Console.WriteLine("To make this as simple as possible, this tool will now generate an empty .pro file and will then open it.");
             Console.WriteLine("The only thing you have to do is 1. select your Unreal Engine build kit when asked by QtCreator, 2. Hit the configure project button, 3. close QtCreator.\n");
             Console.WriteLine("Please make sure that QtCreator is not currently running, then press enter to proceed...");
@@ -104,6 +106,8 @@ namespace GenerateQTProject
             Console.WriteLine("QtCreator launched...");
             qtCreatorProcess.WaitForExit();
             Console.WriteLine("QtCreator closed...\n");
+
+            PrintHeader();
 
             if (!File.Exists(FileActions.PROGRAM_DIR + "temp.pro.user"))
             {
@@ -138,7 +142,7 @@ namespace GenerateQTProject
 
             const string middle_env_id_pattern = "\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}";
 
-            string qtEnvId = Regex.Match(userContent, "\\<variable\\>EnvironmentId\\</variable\\>[\\w]*\n[\\w]*\\<value type=\"QByteArray\"\\>\\(?<id>" + middle_env_id_pattern + ")").Groups["id"].Value;
+            string qtEnvId = Regex.Match(userContent, "\\<variable\\>EnvironmentId\\</variable\\>[\\s]*\n[\\s]*\\<value type=\"QByteArray\"\\>(?<id>" + middle_env_id_pattern + ")").Groups["id"].Value;
             string qtConfId = Regex.Match(userContent, "key=\"ProjectExplorer.ProjectConfiguration.Id\"\\>(?<id>" + middle_env_id_pattern + ")").Groups["id"].Value;
 
             if (Configuration.IsValidQtId(qtEnvId))
@@ -195,7 +199,7 @@ namespace GenerateQTProject
                     {
                         foreach (string dir in Directory.GetDirectories(uPath))
                         {
-                            if (dir.Substring(dir.LastIndexOf("\\") + 1).StartsWith("4.") && File.Exists(dir + @"Engine\Build\BatchFiles\build.bat"))
+                            if (dir.Substring(dir.LastIndexOf("\\") + 1).StartsWith("4.") && File.Exists(dir + @"\Engine\Build\BatchFiles\build.bat"))
                             {
                                 success = true;
                                 launcherPath = true;
@@ -277,7 +281,7 @@ namespace GenerateQTProject
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine("***********************************************");
-            Console.WriteLine("****** Unreal Qt Project Generator v0.2d ******");
+            Console.WriteLine("****** Unreal Qt Project Generator v0.3  ******");
             Console.WriteLine("******            ©2015 AlphaN           ******");
             Console.WriteLine("******     Special Thanks to Antares     ******");
             Console.WriteLine("***********************************************");

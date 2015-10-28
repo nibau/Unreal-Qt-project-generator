@@ -266,7 +266,7 @@ namespace GenerateQTProject
                 UNREAL_PATH = Configuration.data.customEngines[customCommand];
 
             // Load user file preset
-            String qtBuildPreset = File.ReadAllText("qtBuildPreset.xml");
+            String qtBuildPreset = File.ReadAllText(FileActions.PROGRAM_DIR + "qtBuildPreset.xml");
 
             // Replace preset variables with actual values
             qtBuildPreset = qtBuildPreset.Replace("$PROJECT_NAME", PROJECT_NAME);
@@ -278,7 +278,7 @@ namespace GenerateQTProject
             qtBuildPreset = qtBuildPreset.Replace("$QT_CONF_ID", QT_CONF_ID);
 
             // remove -rocket for custom engine builds
-            if (isLauncherPath) // || isCustomBuild
+            if (!isLauncherPath) // || isCustomBuild
             {
                 qtBuildPreset = qtBuildPreset.Replace("-rocket", "");
             }
