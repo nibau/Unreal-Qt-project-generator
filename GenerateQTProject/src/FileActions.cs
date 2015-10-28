@@ -32,16 +32,16 @@ namespace GenerateQTProject
     /// </summary>
     class FileActions
     {
-        public static string program_dir { get; } = AppDomain.CurrentDomain.BaseDirectory;
+        public static string PROGRAM_DIR { get; } = AppDomain.CurrentDomain.BaseDirectory;
 
         public static void OpenConfigFile()
         {
-            if (!File.Exists(program_dir + Configuration.config_file_name))
-                File.WriteAllText(program_dir + Configuration.config_file_name, Configuration.defaultConfigurationFile);
+            if (!File.Exists(PROGRAM_DIR + Configuration.CONFIG_FILE_NAME))
+                File.WriteAllText(PROGRAM_DIR + Configuration.CONFIG_FILE_NAME, Configuration.defaultConfigurationFile);
 
             try
             {
-                System.Diagnostics.Process.Start(program_dir + "UnrealProjectGenerator.ini");
+                System.Diagnostics.Process.Start(PROGRAM_DIR + "UnrealProjectGenerator.ini");
             }
             catch (Exception e)
             {
@@ -97,7 +97,7 @@ namespace GenerateQTProject
         /// </summary>
         public static void CheckIfPresetFilePresent()
         {
-            if (!File.Exists(program_dir + "qtBuildPreset.xml"))
+            if (!File.Exists(PROGRAM_DIR + "qtBuildPreset.xml"))
             {
                 Console.WriteLine("qtBuildPreset.xml (has to be in same folder as this .exe) file is missing.  - Press enter to quit...");
                 Console.ReadLine();

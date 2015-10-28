@@ -22,14 +22,24 @@ namespace GenerateQTProject
 
     public static class Configuration
     {
-        public static string config_file_name { get; } = "UnrealProjectGenerator.ini";
+        public static string CONFIG_FILE_NAME { get; } = "UnrealProjectGenerator.ini";
         public static ConfigurationData data;
 
         const string env_id_pattern = "^\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}$";
 
-        public static void storeDefaultUnrealPath(string path)
+        public static void StoreDefaultUnrealPath(string path)
         {
 
+        }
+
+        public static bool HasConfigurationFile()
+        {
+            return File.Exists(FileActions.PROGRAM_DIR + CONFIG_FILE_NAME);
+        }
+
+        public static bool IsValidCustomCommand(string command)
+        {
+            return data.customEngines != null && data.customEngines.ContainsKey(command);
         }
 
         public static bool LoadConfiguration()
@@ -37,12 +47,12 @@ namespace GenerateQTProject
             data = new ConfigurationData();
             data.customEngines = new Dictionary<string, string>();
 
-            if (!File.Exists(FileActions.program_dir + config_file_name))
+            if (!File.Exists(FileActions.PROGRAM_DIR + CONFIG_FILE_NAME))
             {
                 return false;
             }
 
-            string[] config = File.ReadAllLines(FileActions.program_dir + config_file_name);
+            string[] config = File.ReadAllLines(FileActions.PROGRAM_DIR + CONFIG_FILE_NAME);
 
             string line = "";
             Boolean customSection = false;

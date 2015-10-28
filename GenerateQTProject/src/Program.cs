@@ -29,33 +29,46 @@ namespace GenerateQTProject
     class Program
     {
         static void Main(string[] args)
-        {         
+        {
+            string customCommand = "";
+
             FileActions.CheckIfPresetFilePresent();
+
+            ConsoleActions.DisplayFirstRunDisclaimer();
 
             string projectDir = "";
             string projectName = "";
 
-            if (!Configuration.LoadConfiguration())
+            if (!Configuration.HasConfigurationFile())
+            {
+                ConsoleActions.StartConfigWizard();
+            }
+            else if (!Configuration.LoadConfiguration())
             {
                 ConsoleActions.PrintHeader();
-                Console.WriteLine("No valid configuration found. The configuration file will now open and you have to set at least the entries in the default section to match your configuration. After you have saved your configuration, please rerun the tool.\nTo open the configuration file, press enter...");
+                Console.WriteLine("Invalid configuration found. The configuration file will now open and you have to set at least the entries in the default section to match your configuration. After you have saved your configuration, please rerun the tool.\nTo open the configuration file, press enter...");
                 Console.ReadLine();
                 FileActions.OpenConfigFile();
                 Environment.Exit(0);
             }
 
+            if (args.Length == 1 && Configuration.IsValidCustomCommand(args[0]))
+            {
+                customCommand = args[0];
+            }
+
             projectDir = FileActions.lookForProjectInWD();
 
-            if (projectDir == "")
+            if (projectDir == "") // working directory isn't a project directory
             {
                 ConsoleActions.PrintHeader();
-                ConsoleActions.DisplayFirstRunDisclaimer();
-                projectDir = ConsoleActions.InputProjectPath();            
+                
+                projectDir = ConsoleActions.InputProjectPath();
+                Console.WriteLine();
             }
 
             projectName = FileActions.ExtractProjectName(projectDir);
-
-            Console.WriteLine();
+            
             if (!Generator.GenerateProFile(projectDir, projectName))
             {
                 Console.WriteLine(" - Press Enter to quit application...");
@@ -71,7 +84,7 @@ namespace GenerateQTProject
                 Environment.Exit(2);
             }
 
-            if (!Generator.GenerateQtBuildPreset(projectDir, projectName))
+            if (!Generator.GenerateQtBuildPreset(projectDir, projectName, customCommand))
             {
                 Console.WriteLine(" - Press Enter to quit application...");
                 Console.ReadLine();

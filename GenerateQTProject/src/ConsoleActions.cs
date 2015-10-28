@@ -72,6 +72,12 @@ namespace GenerateQTProject
             return projDir;
         }
 
+
+        public static void StartConfigWizard()
+        {
+
+        }
+
         /// <summary>
         /// If this is the first run, display the disclaimer, if accepted this is stored in a file in the AppData folder
         /// </summary>

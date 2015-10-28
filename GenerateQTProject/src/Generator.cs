@@ -34,6 +34,8 @@ namespace GenerateQTProject
     /// </summary>
     class Generator
     {
+        private const string ENTER_QUIT_MSG = " - Press Enter to quit...";
+
         /// <summary>
         /// Generates the Qt project file
         /// </summary>
@@ -125,9 +127,9 @@ namespace GenerateQTProject
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\nError during .pro file creation.\n");
+                Console.WriteLine("\nERROR: couldn't write project file.\n");
                 Console.WriteLine(ex.StackTrace);
-                Console.Write(" - Press Enter to quit...");
+                Console.Write(ENTER_QUIT_MSG);
                 Console.ReadLine();
                 Environment.Exit(4);
                 return false;
@@ -151,7 +153,7 @@ namespace GenerateQTProject
             {
                 Console.WriteLine("\nERROR: vcxproj file couldn't be read.\n");
                 Console.WriteLine(ex.StackTrace);
-                Console.Write(" - Press Enter to quit...");
+                Console.Write(ENTER_QUIT_MSG);
                 Console.ReadLine();
                 Environment.Exit(5);
                 return false;
@@ -186,7 +188,7 @@ namespace GenerateQTProject
             {
                 Console.WriteLine("\nERROR: Couldn't write defines and include files.\n");
                 Console.WriteLine(ex.StackTrace);
-                Console.Write(" - Press Enter to quit...");
+                Console.Write(ENTER_QUIT_MSG);
                 Console.ReadLine();
                 Environment.Exit(6);
                 return false;
@@ -202,7 +204,7 @@ namespace GenerateQTProject
         /// <param name="projectDir">Directory which contains sln and uproject file</param>
         /// <param name="projectName">Name of your UE project</param>
         /// <returns>success</returns>
-        public static bool GenerateQtBuildPreset(string projectDir, string projectName)
+        public static bool GenerateQtBuildPreset(string projectDir, string projectName, string customCommand)
         {
             // Helper variable which stores the retrieved Unreal Engine Version
             string UnrealVersion;
@@ -237,8 +239,31 @@ namespace GenerateQTProject
             UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
             UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
 
-            // Retrieve Unreal Engine directory (try to retrieve from stored value)
-            UNREAL_PATH = Configuration.data.defaultEnginePath;
+            bool isLauncherPath = false;
+
+            // Retrieve Unreal Engine directory (defaultEnginePath if no customCommand is used, otherwise custom engine path)
+            if (customCommand == "")
+            {          
+                UNREAL_PATH = Configuration.data.defaultEnginePath;
+
+                // special handling of launcher version
+                if (Configuration.data.isLauncherPath)
+                {
+                    isLauncherPath = true;
+
+                    // Add version to path --> complete path
+                    UNREAL_PATH += UnrealVersion;
+                    if (!Directory.Exists(UNREAL_PATH))
+                    {
+                        Console.WriteLine("\nERROR: Your project was generated with Unreal Engine " + UnrealVersion + ", which apparently seems not to be installed at the moment (path: " + UNREAL_PATH + " doesn't exist.)\n");
+                        Console.Write(ENTER_QUIT_MSG);
+                        Console.ReadLine();
+                        Environment.Exit(4);
+                    }
+                }
+            }
+            else // custom commands only for 
+                UNREAL_PATH = Configuration.data.customEngines[customCommand];
             
             /*else // no value stored yet
             {
@@ -279,16 +304,10 @@ namespace GenerateQTProject
                 Console.WriteLine();
             }*/
 
-            // Add version to path --> complete path
-            UNREAL_PATH += UnrealVersion;
+            
+            
 
-            if (!Directory.Exists(UNREAL_PATH))
-            {
-                Console.WriteLine("\nERROR: Your project was generated with Unreal Engine " + UnrealVersion + ", which apparently seems not to be installed at the moment (path: " + UNREAL_PATH + " doesn't exist.)\n");
-                Console.Write(" - Press Enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(4);
-            }
+
 
             // Load user file preset
             String qtBuildPreset = File.ReadAllText("qtBuildPreset.xml");
@@ -303,60 +322,10 @@ namespace GenerateQTProject
             qtBuildPreset = qtBuildPreset.Replace("$QT_CONF_ID", QT_CONF_ID);
 
             // remove -rocket for custom engine builds
-            if (!Configuration.data.isLauncherPath) // || isCustomBuild
+            if (isLauncherPath) // || isCustomBuild
             {
                 qtBuildPreset = qtBuildPreset.Replace("-rocket", "");
             }
-
-            /*
-            Console.WriteLine("Before proceeding, make sure that QT Creator is closed and that .pro files are associated with it.\n");
-            Console.WriteLine(" - Press Enter to proceed...");
-            Console.ReadLine();
-
-            Console.WriteLine("This program will now launch Qt Creator.\n"
-            + "When you are asked to choose a build kit, please select your previously generated \"Unreal Engine 4\" kit and hit the configure project button.");
-            Console.WriteLine("When you are done, close Qt Creator. It will generate a user file which will then be modified by this program.\n");
-            Console.WriteLine("When you are ready,  - Press enter to proceed...");
-            Console.ReadLine();
-
-            // Launch Qt Creator in order to let it generate the user file
-            Process qtCreatorProcess = Process.Start(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro");
-            Console.WriteLine("QtCreator launched...");
-            qtCreatorProcess.WaitForExit();
-
-            Console.WriteLine("QtCreator closed...\n");
-
-            Console.Clear();
-            ConsoleActions.PrintHeader();
-
-
-            Console.WriteLine("Retrieving .pro.user file...");
-
-            if (!File.Exists(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro.user"))
-            {
-                Console.WriteLine("ERROR: No .pro.user file found. ");
-                return false;
-            }
-
-            // Load user file
-            string currentQTProFile = File.ReadAllText(projectDir + "\\Intermediate\\ProjectFiles\\" + projectName + ".pro.user");
-            string headerPart, footerPart;
-
-            */
-
-            /*     
-               IMPORTANT: The following part is a hacky solution, if Qt changes anything in the layout of the proj.pro.user file this may break (I think that proj.pro.user file is not intended to be modified by the user)
-               But since this file seems to be (?) the only place where QtCreator stores build presets and launch targets (debug game, development editor, shipping, etc...) this is probably (?) the only option.
-            */
-
-            // Retrieve the parts not concerning build configurations (because Qt Creator has some ids in there which mustn't be changed)
-            //headerPart = currentQTProFile.Substring(0, currentQTProFile.IndexOf("<value type=\"int\" key=\"ProjectExplorer.Target.ActiveBuildConfiguration\">"));
-            //footerPart = currentQTProFile.Remove(0, currentQTProFile.IndexOf("<variable>ProjectExplorer.Project.TargetCount</variable>") - 1);
-
-            // Combine parts to a complete but modified user file
-            //qtBuildPreset = headerPart + qtBuildPreset + "\n" + footerPart;
-
-            
 
             // Write new user file
             try
@@ -365,9 +334,9 @@ namespace GenerateQTProject
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\nError during pro.user file creation.");
+                Console.WriteLine("\nERROR: coudldn't write .pro.user file.");
                 Console.WriteLine(ex.StackTrace);
-                Console.Write(" - Press Enter to quit...");
+                Console.Write(ENTER_QUIT_MSG);
                 Console.ReadLine();
                 Environment.Exit(3);
             }
