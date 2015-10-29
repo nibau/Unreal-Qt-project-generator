@@ -25,8 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using Microsoft.Win32;
-using System.Diagnostics;
 
 namespace GenerateQTProject
 {
@@ -207,8 +205,8 @@ namespace GenerateQTProject
         /// <returns>success</returns>
         public static bool GenerateQtBuildPreset(string projectDir, string projectName)
         {
-            // Helper variable which stores the retrieved Unreal Engine Version
-            string UnrealVersion;
+            // Helper variable which stores the retrieved Unreal Engine Version (currently not needed)
+            //string UnrealVersion;
 
             // These variables are used to replace parts of the qtBuildPreset.xml file to match your project and Unreal Engine installation
             string UPROJ_FILE,
@@ -236,9 +234,9 @@ namespace GenerateQTProject
             }
 
             // Retrieve engine version from .uproject file
-            UnrealVersion = File.ReadAllText(UPROJ_FILE);
-            UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
-            UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
+            //UnrealVersion = File.ReadAllText(UPROJ_FILE);
+            //UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
+            //UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
 
             // Retrieve Unreal Engine directory (defaultEnginePath if no customCommand is used, otherwise custom engine path)
 
@@ -247,7 +245,8 @@ namespace GenerateQTProject
             try
             {
                 vcxText = File.ReadAllText(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".vcxproj");
-            } catch
+            }
+            catch
             {
                 Console.WriteLine("\nERROR: couldn't read vcxproj file.\n");
                 return false;
@@ -264,7 +263,7 @@ namespace GenerateQTProject
                 UNREAL_PATH = match.Groups["path"].Value;
                 if (!File.Exists(UNREAL_PATH + @"\Engine\Build\BatchFiles\build.bat"))
                 {
-                    Console.WriteLine("\nERROR: Invalid engine path found in vcxproj. Maybe you have no longer installed the Unreal Engine build with which you created this project?.\n");
+                    Console.WriteLine("\nERROR: Invalid engine path found in vcxproj. Maybe you have no longer installed the Unreal Engine build with which you created this project?\n");
                     return false;
                 }
 
@@ -296,7 +295,7 @@ namespace GenerateQTProject
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\nERROR: coudldn't write .pro.user file.");
+                Console.WriteLine("\nERROR: couldn't write .pro.user file.");
                 Console.WriteLine(ex.StackTrace);
                 Console.Write(ENTER_QUIT_MSG);
                 Console.ReadLine();
