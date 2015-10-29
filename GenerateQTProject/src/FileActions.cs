@@ -135,9 +135,9 @@ namespace GenerateQTProject
             foreach (string sfile in Directory.GetFiles(scanDirectory))
             {
                 if (sfile.EndsWith(".cpp"))
-                    SourceFiles.Add("../../" + sfile.Substring(sfile.IndexOf("Source\\" + projectName)).Replace("\\", "/"));
+                    SourceFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
                 else if (sfile.EndsWith(".h") || sfile.EndsWith(".hpp"))
-                    HeaderFiles.Add("../../" + sfile.Substring(sfile.IndexOf("Source\\" + projectName)).Replace("\\", "/"));
+                    HeaderFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
             }
         }
     }
