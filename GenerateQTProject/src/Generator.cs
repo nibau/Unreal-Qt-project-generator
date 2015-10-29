@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System.Diagnostics;
 
@@ -204,7 +205,7 @@ namespace GenerateQTProject
         /// <param name="projectDir">Directory which contains sln and uproject file</param>
         /// <param name="projectName">Name of your UE project</param>
         /// <returns>success</returns>
-        public static bool GenerateQtBuildPreset(string projectDir, string projectName, string customCommand)
+        public static bool GenerateQtBuildPreset(string projectDir, string projectName)
         {
             // Helper variable which stores the retrieved Unreal Engine Version
             string UnrealVersion;
@@ -239,31 +240,36 @@ namespace GenerateQTProject
             UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
             UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
 
-            bool isLauncherPath = false;
-
             // Retrieve Unreal Engine directory (defaultEnginePath if no customCommand is used, otherwise custom engine path)
-            if (customCommand == "")
-            {          
-                UNREAL_PATH = Configuration.data.defaultEnginePath;
 
-                // special handling of launcher version
-                if (Configuration.data.isLauncherPath)
-                {
-                    isLauncherPath = true;
+            string vcxText;
 
-                    // Add version to path --> complete path
-                    UNREAL_PATH += UnrealVersion;
-                    if (!Directory.Exists(UNREAL_PATH))
-                    {
-                        Console.WriteLine("\nERROR: Your project was generated with Unreal Engine " + UnrealVersion + ", which apparently seems not to be installed at the moment (path: " + UNREAL_PATH + " doesn't exist.)\n");
-                        Console.Write(ENTER_QUIT_MSG);
-                        Console.ReadLine();
-                        Environment.Exit(4);
-                    }
-                }
+            try
+            {
+                vcxText = File.ReadAllText(projectDir + "Intermediate\\ProjectFiles\\" + projectName + ".vcxproj");
+            } catch
+            {
+                Console.WriteLine("\nERROR: couldn't read vcxproj file.\n");
+                return false;
             }
-            else // custom commands only for 
-                UNREAL_PATH = Configuration.data.customEngines[customCommand];
+
+            var match = Regex.Match(vcxText, "\\<NMakeBuildCommandLine\\>\\\"(?<path>.*)\\\\Engine\\\\Build\\\\BatchFiles\\\\Build.bat");
+            if (!match.Success)
+            {
+                Console.WriteLine("\nERROR: Unreal Engine path not found in vcxproj file.\n");
+                return false;
+            }
+            else
+            {
+                UNREAL_PATH = match.Groups["path"].Value;
+                if (!File.Exists(UNREAL_PATH + @"\Engine\Build\BatchFiles\build.bat"))
+                {
+                    Console.WriteLine("\nERROR: Invalid engine path found in vcxproj. Maybe you have no longer installed the Unreal Engine build with which you created this project?.\n");
+                    return false;
+                }
+
+                UNREAL_PATH = UNREAL_PATH.Replace("\\", "/");
+            }
 
             // Load user file preset
             String qtBuildPreset = File.ReadAllText(FileActions.PROGRAM_DIR + "qtBuildPreset.xml");
@@ -278,7 +284,7 @@ namespace GenerateQTProject
             qtBuildPreset = qtBuildPreset.Replace("$QT_CONF_ID", QT_CONF_ID);
 
             // remove -rocket for custom engine builds
-            if (!isLauncherPath) // || isCustomBuild
+            if (!vcxText.Contains("-rocket")) // Engine is a git custom build
             {
                 qtBuildPreset = qtBuildPreset.Replace("-rocket", "");
             }
