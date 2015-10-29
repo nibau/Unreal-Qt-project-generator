@@ -32,13 +32,19 @@ namespace GenerateQTProject
     /// </summary>
     class FileActions
     {
+        /// <summary>
+        /// Directory where the uProGen executable is located.
+        /// </summary>
         public static string PROGRAM_DIR { get; } = AppDomain.CurrentDomain.BaseDirectory;
 
+        /// <summary>
+        /// Opens configuration file in default text editor.
+        /// </summary>
         public static void OpenConfigFile()
         {
             try
             {
-                System.Diagnostics.Process.Start(PROGRAM_DIR + "UnrealProjectGenerator.ini");
+                System.Diagnostics.Process.Start(PROGRAM_DIR + Configuration.CONFIG_FILE_NAME);
             }
             catch
             {
@@ -46,8 +52,6 @@ namespace GenerateQTProject
                 Environment.Exit(10);
             }
         }
-
-        //const string UNREAL_PATH_FILENAME = "UnrealPath.txt";
 
         /// <summary>
         /// Extract project name from sln filename
@@ -76,7 +80,11 @@ namespace GenerateQTProject
             return projectName;
         }
 
-        public static string lookForProjectInWD()
+        /// <summary>
+        /// Scan working directory for .uproject file
+        /// </summary>
+        /// <returns>Working directory if project file is found, empty string otherwise</returns>
+        public static string LookForProjectInWD()
         {
             foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
             {

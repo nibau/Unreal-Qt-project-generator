@@ -30,8 +30,7 @@ namespace GenerateQTProject
     {
         static void Main(string[] args)
         {
-            string customCommand = "";
-
+            // program cannot run without qtBuildPreset.xml
             FileActions.CheckIfPresetFilePresent();
 
             ConsoleActions.DisplayFirstRunDisclaimer();
@@ -57,12 +56,8 @@ namespace GenerateQTProject
                 Environment.Exit(0);
             }
 
-            if (args.Length == 1 && Configuration.IsValidCustomCommand(args[0]))
-            {
-                customCommand = args[0];
-            }
-
-            projectDir = FileActions.lookForProjectInWD();
+            // search working directory for project files
+            projectDir = FileActions.LookForProjectInWD();
             projectDir += "\\";
 
             if (projectDir == "\\") // working directory isn't a project directory
@@ -90,7 +85,7 @@ namespace GenerateQTProject
                 Environment.Exit(2);
             }
 
-            if (!Generator.GenerateQtBuildPreset(projectDir, projectName, customCommand))
+            if (!Generator.GenerateQtBuildPreset(projectDir, projectName))
             {
                 Console.WriteLine(" - Press Enter to quit application...");
                 Console.ReadLine();
