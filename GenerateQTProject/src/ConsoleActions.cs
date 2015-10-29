@@ -85,18 +85,6 @@ namespace GenerateQTProject
             Console.WriteLine("It seems that you run this program for the first time as no configuration file was found.\n");
             Console.WriteLine("This program now needs to detect your Qt environment id and the id of your Unreal Engine build kit (which you should already have created in QtCreator before).\n\n");
 
-            /*Console.WriteLine("1. First you have to enter the path to your primary Unreal Engine installation directory.\nIn case of the launcher version please select the launcher directory which contains the different 4.x folders. If you want to use a custom engine build (from git), please select the base directory of the installation (which contains Engine, Templates, etc. folders).\n");
-            Console.WriteLine("If you want to use both (launcher and custom builds) for project file generation, select the launcher path as you can add custom commands for git builds to the configuration file. (see comments in config file)");
-            //Console.WriteLine("Custom commands consist of a command_name/engine_installation_directory pair (only for git engine builds). When you want to generate a project file for a custom engine build, it then suffices to launch the project generator with the command_name as argument.");
-            //Console.WriteLine("\neg. if you have in your configuration file (CustomEngineProfiles section) the line: myAwesomeBuild=C:\\Unreal\\myAwesomeEngineBuildPath");
-            //Console.WriteLine("You can generate the project files for myAwesomeEngineBuild by launching UnrealQtProjectGenerator with the argument myAwesomeBuild.");
-
-            var path = InputEnginePath(true);
-            newConfig.isLauncherPath = path.Item1;
-            newConfig.defaultEnginePath = path.Item2;
-
-            PrintHeader();*/
-
             Console.WriteLine("When you now press enter, an empty project will be opened in QtCreator.");
             Console.WriteLine("The only thing you have to do is:\n 1. select your Unreal Engine build kit when asked by QtCreator\n 2. Hit the configure project button\n 3. close QtCreator.\n");
             Console.WriteLine("Please make sure that QtCreator is not currently running, then press enter to proceed...");
@@ -169,7 +157,7 @@ namespace GenerateQTProject
                 Environment.Exit(18);
             }
 
-            if (!Configuration.writeWizardConfig(newConfig))
+            if (!Configuration.WriteWizardConfig(newConfig))
             {
                 Console.WriteLine("\nERROR: Error while writing configuration file.");
                 Console.WriteLine(" - press enter to quit...");
