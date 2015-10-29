@@ -29,7 +29,7 @@ namespace GenerateQTProject
 {
     public struct ConfigurationData
     {
-        // this information has to be copied over from a .pro.user file once
+        // this information has to be copied over from a .pro.user file on this computer once
         public string qtCreatorEnvironmentId;
         public string qtCreatorUnrealConfigurationId;
     }
@@ -39,6 +39,7 @@ namespace GenerateQTProject
         public static string CONFIG_FILE_NAME { get; } = "config.ini";
         public static ConfigurationData data;
 
+        // regex pattern for Qt environment and configuration ids
         const string ENV_ID_PATTERN = "^\\{[0-9a-f]{8}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{4}\\-[0-9a-f]{12}\\}$";
 
         /// <summary>
@@ -127,6 +128,11 @@ namespace GenerateQTProject
             return true;
         }
 
+        /// <summary>
+        /// Writes the initial configuration file
+        /// </summary>
+        /// <param name="data">Data to write</param>
+        /// <returns>True if successful</returns>
         public static bool WriteWizardConfig(ConfigurationData data)
         {
             string file = "";
