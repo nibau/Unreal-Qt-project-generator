@@ -42,8 +42,12 @@ namespace GenerateQTProject
             {
                 ConsoleActions.StartConfigWizard();
                 ConsoleActions.PrintHeader();
-                Console.WriteLine("Configuration file written sucessfully.\n");
-                Console.WriteLine("The tool should from now on work automatically. Just launch it from inside your project folder (so that the working directory matches the project folder)");
+                Console.WriteLine("Configuration file written successfully.\n");
+                Console.WriteLine("From now on you have two options to create project files:\n");
+                Console.WriteLine("1. Run the tool from anywhere and enter the path to the project folder manually");
+                Console.WriteLine("2. Run it from the command-line inside the project folder. (tool will detect everything from the working directory)");
+                Console.WriteLine("\n\nIf you prefer the second option, I recommend adding the uProGen folder\nto the PATH variable.");
+                Console.WriteLine("\n\n\t-Press Enter to quit...");
                 Console.ReadLine();
                 return;
             }

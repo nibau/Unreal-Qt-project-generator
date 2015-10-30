@@ -41,7 +41,7 @@ namespace GenerateQTProject
             string projDir = "";
             Console.WriteLine("This small tool automates the process of generating a Qt project from an Unreal Engine 4 VS project.\n");
             Console.WriteLine("Before you procede make sure you have created an Unreal Engine build kit in QtCreator (and have completed debugger setup if you intend to debug with QtCreator)\n");
-            Console.WriteLine("WARNING: The project folder inside the source folder and the .vcxproj file must use the same name as the .sln file of your project. (Which is default)\n\n");
+            Console.WriteLine("WARNING: The project folder inside the source folder and the .vcxproj file must use the same name as the .uproject file of your project. (Which is default)\n\n");
 
             bool isValid = false;
             do
@@ -83,10 +83,10 @@ namespace GenerateQTProject
             ConfigurationData newConfig = new ConfigurationData();
 
             Console.WriteLine("It seems that you run this program for the first time as no configuration file was found.\n");
-            Console.WriteLine("This program now needs to detect your Qt environment id and the id of your Unreal Engine build kit (which you should already have created in QtCreator before).\n\n");
+            Console.WriteLine("This program now needs to detect your Qt environment id and the id of your Unreal Engine build kit.\n\n");
 
             Console.WriteLine("When you now press enter, an empty project will be opened in QtCreator.");
-            Console.WriteLine("The only thing you have to do is:\n 1. select your Unreal Engine build kit when asked by QtCreator\n 2. Hit the configure project button\n 3. close QtCreator.\n");
+            Console.WriteLine("The only thing you have to do is:\n\n 1. Select your Unreal Engine build kit when asked by QtCreator\n 2. Hit the configure project button\n 3. Close QtCreator.\n");
             Console.WriteLine("Please make sure that QtCreator is not currently running, then press enter to proceed...");
             Console.ReadLine();
 

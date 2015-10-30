@@ -61,6 +61,7 @@ namespace GenerateQTProject
         public const int BUILD_PRESET_MISSING = 14;
         public const int CONFIG_OPEN_ERROR = 15;
         public const int BUILD_PRESET_READ_FAILED = 16;
+        public const int SOURCE_PATH_NOT_FOUND = 17;
 
         /* ERROR MESSAGES*/
 
@@ -81,7 +82,8 @@ namespace GenerateQTProject
             "The .uproject file was not found.",
             "qtBuildPreset.xml (has to be in same folder as this .exe) file is missing.",
             "An error occurred while trying to open the configuration file.",
-            "Error while reading qtBuildPreset.xml."
+            "Error while reading qtBuildPreset.xml.",
+            "Source folder not found!"
         };
     }
 }
