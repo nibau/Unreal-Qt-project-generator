@@ -98,9 +98,7 @@ namespace GenerateQTProject
         public static void CheckIfPresetFilePresent()
         {
             if (!File.Exists(PROGRAM_DIR + "qtBuildPreset.xml"))
-            {
                 Errors.ErrorExit(Errors.BUILD_PRESET_MISSING);
-            }
         }
 
         /// <summary>

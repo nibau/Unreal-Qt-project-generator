@@ -37,14 +37,12 @@ namespace GenerateQTProject
         /// <summary>
         /// Generates the Qt project file
         /// </summary>
-        /// <param name="projectDir">Directory which contains sln and uproject file</param>
-        /// <param name="projectName">Name of your UE project</param>
+        /// <param name="projData">Reference to project parser</param>
         /// <returns>success</returns>
         public static void GenerateProFile(ProjectFileParser projData)
         {
             /* These lists will store all source and header files 
             which are found in the source directory of your project */
-
             List<string> SourceFilePaths;
             List<string> HeaderFilePaths;
 
@@ -57,7 +55,6 @@ namespace GenerateQTProject
             string sourcePath = projData.projectPath + "Source\\" + projData.projectName;
 
             FileActions.ScanDirectoryForFiles(SourceFilePaths, HeaderFilePaths, sourcePath, projData.projectName);
-
 
             // Add some useful configuration options and include all UE defines
             string qtProFile = "TEMPLATE = app\n" +
@@ -105,7 +102,7 @@ namespace GenerateQTProject
             {
                 File.WriteAllText(projData.projectPath + "Intermediate\\ProjectFiles\\" + projData.projectName + ".pro", qtProFile);
             }
-            catch (Exception ex)
+            catch
             {
                 Errors.ErrorExit(Errors.PROJECT_FILE_WRITE_FAILED);
             }
@@ -114,8 +111,7 @@ namespace GenerateQTProject
         /// <summary>
         /// Generates defines.pri and includes.pri files (with data from YourProject.vcxproj)
         /// </summary>
-        /// <param name="projectDir">Directory which contains sln and uproject file</param>
-        /// <param name="projectName">Name of your UE project</param>
+        /// <param name="projData">Reference to project parser</param>
         /// <returns>success</returns>
         public static void GenerateDefinesAndInclude(ProjectFileParser projData)
         {
@@ -136,8 +132,7 @@ namespace GenerateQTProject
         /// <summary>
         /// This method will generate and apply a modified qt.pro.user file, which contains build presets for UE4
         /// </summary>
-        /// <param name="projectDir">Directory which contains sln and uproject file</param>
-        /// <param name="projectName">Name of your UE project</param>
+        /// <param name="projData">Reference to project parser</param>
         /// <returns>success</returns>
         public static void GenerateQtBuildPreset(ProjectFileParser projData)
         {
@@ -164,35 +159,20 @@ namespace GenerateQTProject
             // Set project file path
             UPROJ_FILE = projData.uprojectFilePath;
 
-            // Retrieve engine version from .uproject file
-            //UnrealVersion = File.ReadAllText(UPROJ_FILE);
-            //UnrealVersion = UnrealVersion.Substring(UnrealVersion.IndexOf("\"EngineAssociation\": \"") + "\"EngineAssociation\": \"".Length);
-            //UnrealVersion = UnrealVersion.Remove(UnrealVersion.IndexOf("\","));
-
-            // Retrieve Unreal Engine directory (defaultEnginePath if no customCommand is used, otherwise custom engine path)
-
-            /*var match = Regex.Match(vcxText, "\\<NMakeBuildCommandLine\\>\\\"(?<path>.*)\\\\Engine\\\\Build\\\\BatchFiles\\\\Build.bat");
-            if (!match.Success)
-            {
-                Console.WriteLine("\nERROR: Unreal Engine path not found in vcxproj file.\n");
-                return false;
-            }
-            else
-            {
-                UNREAL_PATH = match.Groups["path"].Value;
-                if (!File.Exists(UNREAL_PATH + @"\Engine\Build\BatchFiles\build.bat"))
-                {
-                    Console.WriteLine("\nERROR: Invalid engine path found in vcxproj. Maybe you have no longer installed the Unreal Engine build with which you created this project?\n");
-                    return false;
-                }
-
-                UNREAL_PATH = UNREAL_PATH.Replace("\\", "/");
-            }*/
-
+            // set engine path
             UNREAL_PATH = projData.GetEnginePath();
 
             // Load user file preset
-            String qtBuildPreset = File.ReadAllText(FileActions.PROGRAM_DIR + "qtBuildPreset.xml");
+            String qtBuildPreset = "";
+            try
+            {
+                qtBuildPreset = File.ReadAllText(FileActions.PROGRAM_DIR + "qtBuildPreset.xml");
+            }
+            catch
+            {
+                Errors.ErrorExit(Errors.BUILD_PRESET_READ_FAILED);
+            }
+            
 
             // Replace preset variables with actual values
             qtBuildPreset = qtBuildPreset.Replace("$PROJECT_NAME", PROJECT_NAME);

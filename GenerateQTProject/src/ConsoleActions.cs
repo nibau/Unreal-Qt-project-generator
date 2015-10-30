@@ -151,55 +151,6 @@ namespace GenerateQTProject
             }
         }
 
-        private static Tuple<bool, string> InputEnginePath(bool allowLauncher)
-        {
-            string uPath = "";
-            bool launcherPath = false;
-
-            bool success = false;
-            do
-            {
-                Console.WriteLine("\nPlease enter Unreal Engine Path:");
-                uPath = Console.ReadLine();
-                uPath = uPath.Replace("\"", "");
-
-                if (!uPath.EndsWith("\\"))
-                    uPath = uPath + "\\";
-
-                if (!Directory.Exists(uPath))
-                {
-                    Console.WriteLine("Invalid Directory\n");
-                }
-                else
-                {
-                    if (allowLauncher && uPath.Contains("Epic Games"))
-                    {
-                        foreach (string dir in Directory.GetDirectories(uPath))
-                        {
-                            if (dir.Substring(dir.LastIndexOf("\\") + 1).StartsWith("4.") && File.Exists(dir + @"\Engine\Build\BatchFiles\build.bat"))
-                            {
-                                success = true;
-                                launcherPath = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (File.Exists(uPath + @"Engine\Build\BatchFiles\build.bat")) {
-                        success = true;
-                        break;
-                    }
-
-
-                    if (!success)
-                        Console.WriteLine("Directory contains no Unreal Engine installations.\n");
-                }
-
-            } while (!success);
-
-            return new Tuple<bool, string>(launcherPath, uPath);
-        }
-
         /// <summary>
         /// If this is the first run, display the disclaimer, if accepted this is stored in a file in the AppData folder
         /// </summary>

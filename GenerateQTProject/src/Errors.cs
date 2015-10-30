@@ -30,7 +30,11 @@ namespace GenerateQTProject
     /// </summary>
     public static class Errors
     {
-
+        /// <summary>
+        /// Prints the error message which corresponds to the error code,
+        /// waits for user to press enter and terminates program with given error code.
+        /// </summary>
+        /// <param name="code">Error code</param>
         public static void ErrorExit(int code)
         {
             Console.WriteLine("\nERROR: " + ErrorMsg[code - 1] + "\n");
@@ -38,6 +42,8 @@ namespace GenerateQTProject
             Console.ReadLine();
             Environment.Exit(code);
         }
+
+        /* ERRORS */
 
         public const int ENGINE_PATH_NOT_FOUND_IN_PROJECT_FILE = 1;
         public const int INVALID_ENGINE_PATH_FOUND = 2;
@@ -54,6 +60,9 @@ namespace GenerateQTProject
         public const int UPROJECT_NOT_FOUND = 13;
         public const int BUILD_PRESET_MISSING = 14;
         public const int CONFIG_OPEN_ERROR = 15;
+        public const int BUILD_PRESET_READ_FAILED = 16;
+
+        /* ERROR MESSAGES*/
 
         private static string[] ErrorMsg =
         {
@@ -71,7 +80,8 @@ namespace GenerateQTProject
             "Error while writing configuration file.",
             "The .uproject file was not found.",
             "qtBuildPreset.xml (has to be in same folder as this .exe) file is missing.",
-            "An error occurred while trying to open the configuration file."
+            "An error occurred while trying to open the configuration file.",
+            "Error while reading qtBuildPreset.xml."
         };
     }
 }
