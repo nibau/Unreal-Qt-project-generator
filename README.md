@@ -17,6 +17,7 @@ The tool can generate .pro files with:
   <li>Qt environment and configuration hashes are automatically detected upon first run of the tool and stored in a configuration file</li>
   <li>Added -waitmutex flag to build targets</li>
   <li>Project generation should now work for any Unreal Engine build (launcher or git), path is now read from vcxproj file and -rocket flag is automatically removed for git builds</li>
+  <li>Code is now much cleaner, simplified some parts with object oriented stuff</li>
   <li>Fixed some bugs</li>
 </ul>
 
