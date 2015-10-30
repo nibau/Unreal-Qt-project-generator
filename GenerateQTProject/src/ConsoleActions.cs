@@ -100,10 +100,7 @@ namespace GenerateQTProject
 
             if (!File.Exists(FileActions.PROGRAM_DIR + "temp.pro.user"))
             {
-                Console.WriteLine("\nERROR: No .pro.user file was generated, cannot proceede (you can also edit the configuration file manually).");
-                Console.WriteLine(" - press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(15);
+                Errors.ErrorExit(Errors.QT_PRO_USERFILE_MISSING);
             }
 
             string userContent = "";
@@ -113,10 +110,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Console.WriteLine("\nERROR: Error while reading .pro.user file.");
-                Console.WriteLine(" - press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(16);
+                Errors.ErrorExit(Errors.QT_PRO_USERFILE_READ_FAILED);
             }
 
             try
@@ -138,10 +132,7 @@ namespace GenerateQTProject
             }
             else
             {
-                Console.WriteLine("\nERROR: Error while reading environment id from user file.");
-                Console.WriteLine(" - press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(17);
+                Errors.ErrorExit(Errors.ENVIRONMENT_ID_NOT_FOUND);
             }
 
             var confMatch = Regex.Match(userContent, "key=\"ProjectExplorer.ProjectConfiguration.Id\"\\>(?<id>" + middle_env_id_pattern + ")");
@@ -151,18 +142,12 @@ namespace GenerateQTProject
             }
             else
             {
-                Console.WriteLine("\nERROR: Error while reading configuration id from user file.");
-                Console.WriteLine(" - press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(18);
+                Errors.ErrorExit(Errors.CONFIGURATION_ID_NOT_FOUND);
             }
 
             if (!Configuration.WriteWizardConfig(newConfig))
             {
-                Console.WriteLine("\nERROR: Error while writing configuration file.");
-                Console.WriteLine(" - press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(19);
+                Errors.ErrorExit(Errors.CONFIGURATION_WRITE_FAILED);
             }
         }
 

@@ -48,13 +48,12 @@ namespace GenerateQTProject
             }
             catch
             {
-                Console.WriteLine("ERROR: An error occurred while trying to open the configuration file.");
-                Environment.Exit(10);
+                Errors.ErrorExit(Errors.CONFIG_OPEN_ERROR);
             }
         }
 
         /// <summary>
-        /// Extract project name from sln filename
+        /// Extract project name from .uproject filename
         /// </summary>
         /// <param name="projectDir">Directory which contains sln and uproject file</param>
         /// <returns>Project Name</returns>
@@ -63,18 +62,16 @@ namespace GenerateQTProject
             string projectName = "";
             foreach (string file in Directory.GetFiles(projectDir))
             {
-                if (file.EndsWith(".sln")) // sln file found
+                if (file.EndsWith(".uproject")) // uproject file found
                 {
-                    projectName = file.Substring(file.LastIndexOf('\\') + 1).Replace(".sln", "");
+                    projectName = file.Substring(file.LastIndexOf('\\') + 1).Replace(".uproject", "");
                     break;
                 }
             }
 
             if (projectName == "")
             {
-                Console.WriteLine("ERRROR: sln file not found.");
-                Console.WriteLine(" - Press Enter to quit application...");
-                Environment.Exit(11);
+                Errors.ErrorExit(Errors.UPROJECT_NOT_FOUND);
             }
 
             return projectName;
@@ -89,9 +86,7 @@ namespace GenerateQTProject
             foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
             {
                 if (file.EndsWith(".uproject"))
-                {
                     return Directory.GetCurrentDirectory();
-                }
             }
 
             return "";
@@ -104,9 +99,7 @@ namespace GenerateQTProject
         {
             if (!File.Exists(PROGRAM_DIR + "qtBuildPreset.xml"))
             {
-                Console.WriteLine("qtBuildPreset.xml (has to be in same folder as this .exe) file is missing.  - Press enter to quit...");
-                Console.ReadLine();
-                Environment.Exit(10);
+                Errors.ErrorExit(Errors.BUILD_PRESET_MISSING);
             }
         }
 
