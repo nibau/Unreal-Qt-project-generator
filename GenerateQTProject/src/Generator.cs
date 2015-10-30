@@ -52,7 +52,10 @@ namespace GenerateQTProject
             SourceFilePaths = new List<string>();
             HeaderFilePaths = new List<string>();
 
-            string sourcePath = projData.projectPath + "Source\\" + projData.projectName;
+            string sourcePath = projData.projectPath + "Source";
+
+            if (!Directory.Exists(sourcePath))
+                Errors.ErrorExit(Errors.SOURCE_PATH_NOT_FOUND);
 
             FileActions.ScanDirectoryForFiles(SourceFilePaths, HeaderFilePaths, sourcePath, projData.projectName);
 
@@ -91,7 +94,7 @@ namespace GenerateQTProject
             "include(includes.pri)";
 
             // Add build.cs as additional file
-            if (File.Exists(sourcePath + "\\" + projData.projectName + ".Build.cs"))
+            if (File.Exists(sourcePath + "\\" + projData.projectName + "\\" + projData.projectName + ".Build.cs"))
             {
                 qtProFile = qtProFile + "\n\n" +
                 "DISTFILES += \\\n\t" +
@@ -199,7 +202,7 @@ namespace GenerateQTProject
                 Errors.ErrorExit(Errors.QT_PRO_USERFILE_WRITE_FAILED);
             }
 
-            Console.WriteLine("User file written sucessfully.");
+            Console.WriteLine("User file written successfully.");
         }
     }
 }
