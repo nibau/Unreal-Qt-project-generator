@@ -79,10 +79,13 @@
   <ItemGroup>
     <Compile Include="src\Configuration.cs" />
     <Compile Include="src\ConsoleActions.cs" />
+    <Compile Include="src\Errors.cs" />
     <Compile Include="src\FileActions.cs" />
     <Compile Include="src\Generator.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\ProjectFileParsers\ProjectFileParser.cs" />
+    <Compile Include="src\ProjectFileParsers\VCX_Parser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

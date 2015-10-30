@@ -36,7 +36,7 @@ namespace GenerateQTProject
 
     public static class Configuration
     {
-        public static string CONFIG_FILE_NAME { get; } = "config.ini";
+        public const string CONFIG_FILE_NAME = "config.ini";
         public static ConfigurationData data;
 
         // regex pattern for Qt environment and configuration ids

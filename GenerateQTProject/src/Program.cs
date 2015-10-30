@@ -50,7 +50,7 @@ namespace GenerateQTProject
             else if (!Configuration.LoadConfiguration())
             {
                 ConsoleActions.PrintHeader();
-                Console.WriteLine("Invalid configuration found. The configuration file will now open and you have to set at least the entries in the default section to match your configuration. After you have saved your configuration, please rerun the tool.\nTo open the configuration file, press enter...");
+                Console.WriteLine("Invalid configuration found.\nThe configuration file will now open so you can fix the values.\nYou can also delete the file and rerun the tool (this will reinvoke the wizard).");
                 Console.ReadLine();
                 FileActions.OpenConfigFile();
                 Environment.Exit(0);
@@ -69,28 +69,14 @@ namespace GenerateQTProject
             }
 
             projectName = FileActions.ExtractProjectName(projectDir);
-            
-            if (!Generator.GenerateProFile(projectDir, projectName))
-            {
-                Console.WriteLine(" - Press Enter to quit application...");
-                Console.ReadLine();
-                Environment.Exit(1);
-            }
 
-            Console.WriteLine("Generating defines.pri and includes.pri...\n");
-            if (!Generator.GenerateDefinesAndInclude(projectDir, projectName))
-            {
-                Console.WriteLine(" - Press Enter to quit application...");
-                Console.ReadLine();
-                Environment.Exit(2);
-            }
+            ProjectFileParser projectParser = new VCX_Parser(projectDir, projectName);
 
-            if (!Generator.GenerateQtBuildPreset(projectDir, projectName))
-            {
-                Console.WriteLine(" - Press Enter to quit application...");
-                Console.ReadLine();
-                Environment.Exit(3);
-            }
+            Generator.GenerateProFile(projectParser);
+         
+            Generator.GenerateDefinesAndInclude(projectParser);
+
+            Generator.GenerateQtBuildPreset(projectParser);
 
             Console.WriteLine("\nQt Project generation successful.\n");
             Console.WriteLine("Do you want to open your project now (y/n)?");
