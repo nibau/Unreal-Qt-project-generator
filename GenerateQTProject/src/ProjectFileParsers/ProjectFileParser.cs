@@ -98,14 +98,14 @@ namespace GenerateQTProject
             string includes = "";
             try
             {
-                includes = ExtractEngineDefines();
+                includes = ExtractEngineIncludes();
             }
             catch
             {
                 Errors.ErrorExit(Errors.DEFINES_AND_INCLUDES_READ_FAILED);
             }
 
-            return ConvertDefinesToQtFormat(includes);
+            return ConvertIncludesToQtFormat(includes);
         }
 
 
@@ -156,6 +156,10 @@ namespace GenerateQTProject
             return path;
         }
 
+        /// <summary>
+        /// Is the engine build which is associated with this project a launcher build?
+        /// </summary>
+        /// <returns>True if launcher build, false if git build</returns>
         public bool IsLauncherBuild()
         {
             return projectFileContent.Contains("-rocket");
