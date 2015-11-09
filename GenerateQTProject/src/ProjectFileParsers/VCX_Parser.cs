@@ -71,7 +71,7 @@ namespace GenerateQTProject
 
         protected override string GetUnrealPathRegexPattern()
         {
-            return "\\<NMakeBuildCommandLine\\>\\\"(?<path>.*)\\\\Engine\\\\Build\\\\BatchFiles\\\\Build.bat";
+            return "\\<NMakeBuildCommandLine\\>\\\"?(?<path>.*)\\\\Engine\\\\Build\\\\BatchFiles\\\\Build.bat";
         }
 
         protected override string LoadProjectFile(string path, string projectName)
