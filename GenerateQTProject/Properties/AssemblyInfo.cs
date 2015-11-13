@@ -10,7 +10,7 @@ using System.Resources;
 [assembly: AssemblyDescription("This small tool allows you to generate a Qt .pro file based on an Unreal Engine 4 Visual Studio project.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("N. Baumann")]
-[assembly: AssemblyProduct("Unreal Qt Project Generator")]
+[assembly: AssemblyProduct("uProGen")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
