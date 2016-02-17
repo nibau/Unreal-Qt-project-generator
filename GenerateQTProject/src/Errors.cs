@@ -3,7 +3,7 @@
  *
  *  Errors.cs
  *
- *  Copyright (c) 2015 N. Baumann
+ *  Copyright (c) 2016 N. Baumann
  *
  *  This software is licensed under MIT license
  *
@@ -25,8 +25,30 @@ using System;
 
 namespace GenerateQTProject
 {
+    /* Error codes */
+    public enum ErrorCode
+    {
+        ENGINE_PATH_NOT_FOUND_IN_PROJECT_FILE,
+        INVALID_ENGINE_PATH_FOUND,
+        DEFINES_AND_INCLUDES_READ_FAILED,
+        PROJECT_FILE_WRITE_FAILED,
+        CODE_PROJECT_FILE_READ_FAILED,
+        DEFINES_AND_INCLUDES_WRITE_FAILED,
+        QT_PRO_USERFILE_WRITE_FAILED,
+        QT_PRO_USERFILE_MISSING,
+        QT_PRO_USERFILE_READ_FAILED,
+        ENVIRONMENT_ID_NOT_FOUND,
+        CONFIGURATION_ID_NOT_FOUND,
+        CONFIGURATION_WRITE_FAILED,
+        UPROJECT_NOT_FOUND,
+        BUILD_PRESET_MISSING,
+        CONFIG_OPEN_ERROR,
+        BUILD_PRESET_READ_FAILED,
+        SOURCE_PATH_NOT_FOUND
+    };
+
     /// <summary>
-    /// Contains all the different error codes.
+    /// Contains all the different error messages.
     /// </summary>
     public static class Errors
     {
@@ -35,33 +57,13 @@ namespace GenerateQTProject
         /// waits for user to press enter and terminates program with given error code.
         /// </summary>
         /// <param name="code">Error code</param>
-        public static void ErrorExit(int code)
+        public static void ErrorExit(ErrorCode code)
         {
-            Console.WriteLine("\nERROR: " + ErrorMsg[code - 1] + "\n");
+            Console.WriteLine("\nERROR: " + ErrorMsg[(int)code] + "\n");
             Console.WriteLine(" - Press Enter to quit application...");
             Console.ReadLine();
-            Environment.Exit(code);
+            Environment.Exit((int)code + 1);
         }
-
-        /* ERRORS */
-
-        public const int ENGINE_PATH_NOT_FOUND_IN_PROJECT_FILE = 1;
-        public const int INVALID_ENGINE_PATH_FOUND = 2;
-        public const int DEFINES_AND_INCLUDES_READ_FAILED = 3;
-        public const int PROJECT_FILE_WRITE_FAILED = 4;
-        public const int CODE_PROJECT_FILE_READ_FAILED = 5;
-        public const int DEFINES_AND_INCLUDES_WRITE_FAILED = 6;
-        public const int QT_PRO_USERFILE_WRITE_FAILED = 7;
-        public const int QT_PRO_USERFILE_MISSING = 8;
-        public const int QT_PRO_USERFILE_READ_FAILED = 9;
-        public const int ENVIRONMENT_ID_NOT_FOUND = 10;
-        public const int CONFIGURATION_ID_NOT_FOUND = 11;
-        public const int CONFIGURATION_WRITE_FAILED = 12;
-        public const int UPROJECT_NOT_FOUND = 13;
-        public const int BUILD_PRESET_MISSING = 14;
-        public const int CONFIG_OPEN_ERROR = 15;
-        public const int BUILD_PRESET_READ_FAILED = 16;
-        public const int SOURCE_PATH_NOT_FOUND = 17;
 
         /* ERROR MESSAGES*/
 

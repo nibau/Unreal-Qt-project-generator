@@ -3,7 +3,7 @@
  *
  *  Generator.cs
  *
- *  Copyright (c) 2015 N. Baumann
+ *  Copyright (c) 2016 N. Baumann
  *
  *  This software is licensed under MIT license
  *
@@ -55,7 +55,7 @@ namespace GenerateQTProject
             string sourcePath = projData.projectPath + "Source";
 
             if (!Directory.Exists(sourcePath))
-                Errors.ErrorExit(Errors.SOURCE_PATH_NOT_FOUND);
+                Errors.ErrorExit(ErrorCode.SOURCE_PATH_NOT_FOUND);
 
             FileActions.ScanDirectoryForFiles(SourceFilePaths, HeaderFilePaths, sourcePath, projData.projectName);
 
@@ -93,12 +93,28 @@ namespace GenerateQTProject
             "# and is dependent on your windows install and engine version\n" +
             "include(includes.pri)";
 
-            // Add build.cs as additional file
+            // Add additional files to project
+            List<string> distFiles = new List<string>();
+
+            // build.cs
             if (File.Exists(sourcePath + "\\" + projData.projectName + "\\" + projData.projectName + ".Build.cs"))
+                distFiles.Add("../../Source/" + projData.projectName + "/" + projData.projectName + ".Build.cs");
+
+            // target.cs files
+            string[] files = Directory.GetFiles(projData.projectPath + "\\Source\\");
+            foreach (string file in files)
+            { 
+                if (file.EndsWith(".Target.cs"))
+                    distFiles.Add("../../Source/" + Path.GetFileName(file));
+            }
+
+            if (distFiles.Count > 0)
             {
-                qtProFile = qtProFile + "\n\n" +
-                "DISTFILES += \\\n\t" +
-                "../../Source/" + projData.projectName + "/" + projData.projectName + ".Build.cs";
+                qtProFile += "\n\nDISTFILES += ";
+                foreach (string distFile in distFiles)
+                {
+                    qtProFile += distFile + " \\\n\t";
+                }
             }
 
             try
@@ -107,7 +123,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.PROJECT_FILE_WRITE_FAILED);
+                Errors.ErrorExit(ErrorCode.PROJECT_FILE_WRITE_FAILED);
             }
         }
 
@@ -127,7 +143,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.DEFINES_AND_INCLUDES_WRITE_FAILED);
+                Errors.ErrorExit(ErrorCode.DEFINES_AND_INCLUDES_WRITE_FAILED);
             }
         }
 
@@ -173,7 +189,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.BUILD_PRESET_READ_FAILED);
+                Errors.ErrorExit(ErrorCode.BUILD_PRESET_READ_FAILED);
             }
             
 
@@ -199,7 +215,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.QT_PRO_USERFILE_WRITE_FAILED);
+                Errors.ErrorExit(ErrorCode.QT_PRO_USERFILE_WRITE_FAILED);
             }
 
             Console.WriteLine("User file written successfully.");

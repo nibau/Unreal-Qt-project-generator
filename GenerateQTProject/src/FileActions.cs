@@ -3,7 +3,7 @@
  *
  *  FileActions.cs
  *
- *  Copyright (c) 2015 N. Baumann
+ *  Copyright (c) 2016 N. Baumann
  *
  *  This software is licensed under MIT license
  *
@@ -48,7 +48,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.CONFIG_OPEN_ERROR);
+                Errors.ErrorExit(ErrorCode.CONFIG_OPEN_ERROR);
             }
         }
 
@@ -71,7 +71,7 @@ namespace GenerateQTProject
 
             if (projectName == "")
             {
-                Errors.ErrorExit(Errors.UPROJECT_NOT_FOUND);
+                Errors.ErrorExit(ErrorCode.UPROJECT_NOT_FOUND);
             }
 
             return projectName;
@@ -98,17 +98,17 @@ namespace GenerateQTProject
         public static void CheckIfPresetFilePresent()
         {
             if (!File.Exists(PROGRAM_DIR + "qtBuildPreset.xml"))
-                Errors.ErrorExit(Errors.BUILD_PRESET_MISSING);
+                Errors.ErrorExit(ErrorCode.BUILD_PRESET_MISSING);
         }
 
         /// <summary>
         /// Recursive method to scan source directory for source and header files
         /// </summary>
-        /// <param name="SourceFiles">List to store source files</param>
-        /// <param name="HeaderFiles">List to store header files</param>
+        /// <param name="sourceFiles">List to store source files</param>
+        /// <param name="headerFiles">List to store header files</param>
         /// <param name="scanDirectory">Directory to scan</param>
         /// <param name="projectName">Name of your UE project</param>
-        public static void ScanDirectoryForFiles(List<string> SourceFiles, List<string> HeaderFiles, string scanDirectory, string projectName)
+        public static void ScanDirectoryForFiles(List<string> sourceFiles, List<string> headerFiles, string scanDirectory, string projectName)
         {
             if (!Directory.Exists(scanDirectory)) // error
             {
@@ -119,16 +119,16 @@ namespace GenerateQTProject
             // Recursive search
             foreach (string dir in Directory.GetDirectories(scanDirectory))
             {
-                ScanDirectoryForFiles(SourceFiles, HeaderFiles, dir, projectName);
+                ScanDirectoryForFiles(sourceFiles, headerFiles, dir, projectName);
             }
 
             // Scan current directory
             foreach (string sfile in Directory.GetFiles(scanDirectory))
             {
                 if (sfile.EndsWith(".cpp"))
-                    SourceFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
+                    sourceFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
                 else if (sfile.EndsWith(".h") || sfile.EndsWith(".hpp"))
-                    HeaderFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
+                    headerFiles.Add("../../" + sfile.Substring(sfile.LastIndexOf("\\Source\\" + projectName)+1).Replace("\\", "/"));
             }
         }
     }

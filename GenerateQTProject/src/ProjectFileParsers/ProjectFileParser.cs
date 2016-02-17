@@ -3,7 +3,7 @@
  *
  *  ProjectFileParser.cs
  *
- *  Copyright (c) 2015 N. Baumann
+ *  Copyright (c) 2016 N. Baumann
  *
  *  This software is licensed under MIT license
  *
@@ -54,11 +54,11 @@ namespace GenerateQTProject
                 uprojectFilePath = projectPath + projectName + ".uproject";
 
                 if (!File.Exists(uprojectFilePath))
-                    Errors.ErrorExit(Errors.UPROJECT_NOT_FOUND);
+                    Errors.ErrorExit(ErrorCode.UPROJECT_NOT_FOUND);
             }
             catch
             {
-                Errors.ErrorExit(Errors.CODE_PROJECT_FILE_READ_FAILED);
+                Errors.ErrorExit(ErrorCode.CODE_PROJECT_FILE_READ_FAILED);
             }
         }
 
@@ -83,7 +83,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.DEFINES_AND_INCLUDES_READ_FAILED);
+                Errors.ErrorExit(ErrorCode.DEFINES_AND_INCLUDES_READ_FAILED);
             }
 
             return ConvertDefinesToQtFormat(defines);
@@ -102,7 +102,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.DEFINES_AND_INCLUDES_READ_FAILED);
+                Errors.ErrorExit(ErrorCode.DEFINES_AND_INCLUDES_READ_FAILED);
             }
 
             return ConvertIncludesToQtFormat(includes);
@@ -144,12 +144,12 @@ namespace GenerateQTProject
             var match = Regex.Match(projectFileContent, GetUnrealPathRegexPattern());
 
             if (!match.Success || match.Groups["path"] == null)
-                Errors.ErrorExit(Errors.ENGINE_PATH_NOT_FOUND_IN_PROJECT_FILE);
+                Errors.ErrorExit(ErrorCode.ENGINE_PATH_NOT_FOUND_IN_PROJECT_FILE);
 
             string path = match.Groups["path"].Value;
 
             if (!File.Exists(path + @"\Engine\Build\BatchFiles\build.bat"))
-                Errors.ErrorExit(Errors.INVALID_ENGINE_PATH_FOUND);
+                Errors.ErrorExit(ErrorCode.INVALID_ENGINE_PATH_FOUND);
 
             path = path.Replace("\\", "/");
 

@@ -3,7 +3,7 @@
  *
  *  ConsoleActions.cs
  *
- *  Copyright (c) 2015 N. Baumann
+ *  Copyright (c) 2016 N. Baumann
  *
  *  This software is licensed under MIT license
  *
@@ -100,7 +100,7 @@ namespace GenerateQTProject
 
             if (!File.Exists(FileActions.PROGRAM_DIR + "temp.pro.user"))
             {
-                Errors.ErrorExit(Errors.QT_PRO_USERFILE_MISSING);
+                Errors.ErrorExit(ErrorCode.QT_PRO_USERFILE_MISSING);
             }
 
             string userContent = "";
@@ -110,7 +110,7 @@ namespace GenerateQTProject
             }
             catch
             {
-                Errors.ErrorExit(Errors.QT_PRO_USERFILE_READ_FAILED);
+                Errors.ErrorExit(ErrorCode.QT_PRO_USERFILE_READ_FAILED);
             }
 
             try
@@ -132,7 +132,7 @@ namespace GenerateQTProject
             }
             else
             {
-                Errors.ErrorExit(Errors.ENVIRONMENT_ID_NOT_FOUND);
+                Errors.ErrorExit(ErrorCode.ENVIRONMENT_ID_NOT_FOUND);
             }
 
             var confMatch = Regex.Match(userContent, "key=\"ProjectExplorer.ProjectConfiguration.Id\"\\>(?<id>" + middle_env_id_pattern + ")");
@@ -142,12 +142,12 @@ namespace GenerateQTProject
             }
             else
             {
-                Errors.ErrorExit(Errors.CONFIGURATION_ID_NOT_FOUND);
+                Errors.ErrorExit(ErrorCode.CONFIGURATION_ID_NOT_FOUND);
             }
 
             if (!Configuration.WriteWizardConfig(newConfig))
             {
-                Errors.ErrorExit(Errors.CONFIGURATION_WRITE_FAILED);
+                Errors.ErrorExit(ErrorCode.CONFIGURATION_WRITE_FAILED);
             }
         }
 
