@@ -116,18 +116,6 @@ namespace GenerateQTProject
                 qtProFile = qtProFile + "\n\n" +
                 "DISTFILES += \\\n\t" +
                 "../../Source/" + projectName + "/" + projectName + ".Build.cs";
-
-                // Add targets as additional files
-                string[] files = Directory.GetFiles(projectDir + "\\Source\\");
-                foreach (string file in files)
-                {
-                    if (file.EndsWith(".Target.cs"))
-                    {
-                        qtProFile = qtProFile + "\n\n" +
-                        "DISTFILES += \\\n\t" +
-                        "../../Source/" + Path.GetFileName(file);
-                    }
-                }
             }
 
             try
