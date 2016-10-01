@@ -21,7 +21,7 @@ https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Crea
 <ol>
   <li>Download the latest version from https://github.com/NAlphaDev/Unreal-Qt-project-generator/releases/latest</li>
   <li>Extract the contents of the zip file to your preferred location</li>
-  <li>First make sure that .pro files are associated with QtCreator, then execute qProGen for the initial configuration</li>
+  <li>First make sure that .pro files are associated with QtCreator, then execute uProGen for the initial configuration</li>
   <li>(Optional) Add the uProGen folder to your PATH variable, so you can launch uProGen from any location</li>
 </ol>
 
@@ -38,5 +38,5 @@ Unreal Engine projects can only be debugged with CDB on Windows (GDB not support
 <b>Important:</b> I have only tested the tool on my computers with Windows 8.1, QtCreator 3.3.0/3.5.0 and Unreal Engine 4.4/4.5/4.8/4.9. There may be bugs.
 
 <h3>How to build</h3>
-Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies)
+Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies).<br>
 The qtBuildPreset.xml file needs to be in the same folder as the executable when you want to run the tool.
