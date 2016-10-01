@@ -22,7 +22,7 @@ https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Crea
   <li>Download the latest version from https://github.com/NAlphaDev/Unreal-Qt-project-generator/releases/latest</li>
   <li>Extract the contents of the zip file to your preferred location</li>
   <li>First make sure that .pro files are associated with QtCreator, then execute qProGen for the initial configuration</li>
-  <li>(Optional): Add the uProGen folder to your PATH variable, so you can launch uProGen from any folder</li>
+  <li>(Optional) Add the uProGen folder to your PATH variable, so you can launch uProGen from any location</li>
 </ol>
 
 <b>Usage:</b>
