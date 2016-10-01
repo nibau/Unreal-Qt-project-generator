@@ -1,4 +1,4 @@
-# Unreal-Qt-project-generator (uProGen)
+# Unreal Qt project generator (uProGen)
 <h3>Overview</h3>
 This small console utility generates QtCreator (qmake) projects for Unreal Engine 4 game development.
 It should work with any version of Unreal Engine 4.
