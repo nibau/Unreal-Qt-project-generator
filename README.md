@@ -1,35 +1,42 @@
-# Unreal-Qt-project-generator
+# Unreal-Qt-project-generator (uProGen)
 <h3>Overview</h3>
-This small console utility generates QtCreator projects for Unreal Engine 4 gameplay programming.
-It should in theory work with any version of Unreal Engine 4 (not tested)
+This small console utility generates QtCreator (qmake) projects for Unreal Engine 4 game development.
+It should work with any version of Unreal Engine 4.
 
 The tool can generate .pro files with:
 <ul>
   <li>Configuration for Unreal Engine development (C++11 support, no Qt)</li>
-  <li>All your current source and header files (+ build.cs) included</li>
+  <li>All your current source and header files included</li>
   <li>All Unreal Engine defines and includes added</li>
-  <li>5 different build and launch targets, which are included in the Visual Studio project file (Debug game, Development Editor, Shipping, etc...)</li>
-  <li>additional Cook target (allows to cook content for standalone builds)</li>
+  <li>5 different build and launch targets (the same which are included in the Visual Studio project: Debug game, Development Editor, Shipping, etc...)</li>
+  <li>Additional Cooking target (allows to cook content for standalone builds directly from within QtCreator)</li>
 </ul>
-<h5>New as of version 0.3:</h5>
-<ul>
-  <li>Drastically reduced necessary user interaction. You can now run the tool from within your project folder and everything else happens automatically. (The project file is detected from working directory)</li>
-  <li>Qt environment and configuration hashes are automatically detected upon first run of the tool and stored in a configuration file</li>
-  <li>Added -waitmutex flag to build targets</li>
-  <li>Project generation should now work for any Unreal Engine build (launcher or git), path is now read from vcxproj file and -rocket flag is automatically removed for git builds</li>
-  <li>Code is now much cleaner, simplified some parts with object oriented stuff</li>
-  <li>Fixed some bugs</li>
-</ul>
+
+<h3>Usage information</h3>
+Before you can use the tool you should configure your QtCreator installation for Unreal Engine development.
+Just follow the tutorial in my post:
+https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
+
+<b>Installation:</b>
+<ol>
+  <li>Download the latest version from https://github.com/NAlphaDev/Unreal-Qt-project-generator/releases/latest</li>
+  <li>Extract the contents of the zip file to your preferred location</li>
+  <li>First make sure that .pro files are associated with QtCreator, then execute qProGen for the initial configuration</li>
+  <li>(Optional): Add the uProGen folder to your PATH variable, so you can launch uProGen from any folder</li>
+</ol>
+
+<b>Usage:</b>
+<ol>
+  <li>Open a cmd window and navigate to your project folder (where .uproject file is located)</li>
+  <li>Run uProGen (the resulting .pro file is stored in the Intermediate\ProjectFiles subdirectory)
+</ol>
 
 <h3>Additional information</h3>
 
-Unreal Engine projects can be debugged with CDB (GDB not supported).
+Unreal Engine projects can only be debugged with CDB on Windows (GDB not supported).
 
-For more information and a tutorial how to setup QtCreator see this post:
-https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
+<b>Important:</b> I have only tested the tool on my computers with Windows 8.1, QtCreator 3.3.0/3.5.0 and Unreal Engine 4.4/4.5/4.8/4.9. There may be bugs.
 
-<b>Important:</b> I have only tested the tool on my computers with Windows 8.1, QtCreator 3.3.0/3.5.0 and Unreal Engine 4.4/4.5/4.8/4.9. There may be bugs present.
-
-<b>How to build:</b>
+<h3>How to build</h3>
 Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies)
 The qtBuildPreset.xml file needs to be in the same folder as the executable when you want to run the tool.
