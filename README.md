@@ -35,7 +35,7 @@ https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Crea
 
 Unreal Engine projects can only be debugged with CDB on Windows (GDB not supported).
 
-<b>Important:</b> I have only tested the tool on my computers with Windows 8.1, QtCreator 3.3.0/3.5.0 and Unreal Engine 4.4/4.5/4.8/4.9. There may be bugs.
+<b>Important:</b> I have tested the tool on my computers with Windows 8.1 64bit, Qt 5.4/5.5/5.7, QtCreator 3.3.0/3.5.0/4.1.0 and Unreal Engine 4.4/4.5/4.8/4.9/4.13. There may be bugs.
 
 <h3>How to build</h3>
 Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies).<br>
