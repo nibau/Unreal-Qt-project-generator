@@ -14,12 +14,11 @@ The tool can generate .pro files with:
 
 <h3>Usage information</h3>
 Before you can use the tool you should configure your QtCreator installation for Unreal Engine development.
-Just follow the tutorial in my post:
-https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Creator-Project-Generator-(v0-1-Beta)
+Just follow the tutorial in my [post](https://forums.unrealengine.com/development-discussion/c-gameplay-programming/30348-tool-tut-win-unreal-qt-creator-project-generator-v0-3).
 
 <b>Installation:</b>
 <ol>
-  <li>Download the latest version from https://github.com/nibau/Unreal-Qt-project-generator/releases/latest</li>
+  <li>Download the latest version from [here](https://github.com/nibau/Unreal-Qt-project-generator/releases/latest)</li>
   <li>Extract the contents of the zip file to your preferred location</li>
   <li>First make sure that .pro files are associated with QtCreator, then execute uProGen for the initial configuration</li>
   <li>(Optional) Add the uProGen folder to your PATH variable, so you can launch uProGen from any location</li>
@@ -35,7 +34,9 @@ https://forums.unrealengine.com/showthread.php?59458-TOOL-Tut-WIN-Unreal-Qt-Crea
 
 Unreal Engine projects can only be debugged with CDB on Windows (GDB not supported).
 
-<b>Important:</b> I have tested the tool on my computers with Windows 8.1 64bit, Qt 5.4/5.5/5.7, QtCreator 3.3.0/3.5.0/4.1.0 and Unreal Engine 4.4/4.5/4.8/4.9/4.13. There may be bugs.
+Since QtCreator 4.7, [Clang code model](https://blog.qt.io/blog/2018/06/05/qt-creators-clang-code-model/) is enabled by default. If you experience slow or unreliable auto-completion with UE projects, I recommend switching to the built-in code model by disabling "ClangCodeModel" under Help -> About Plugins -> C++.
+
+<b>Important:</b> I have tested the tool on my computers with Windows 8.1 64bit, Qt 5.4/5.5/5.7, QtCreator 3.3.0/3.5.0/4.1.0 and Unreal Engine 4.4/4.5/4.8/4.9/4.13.
 
 <h3>How to build</h3>
 Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies).<br>
