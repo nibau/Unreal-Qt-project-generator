@@ -14,11 +14,11 @@ The tool can generate .pro files with:
 
 <h3>Usage information</h3>
 Before you can use the tool you should configure your QtCreator installation for Unreal Engine development.
-Just follow the tutorial in my [forum post][ue post].
+Just follow the tutorial in my post: https://forums.unrealengine.com/development-discussion/c-gameplay-programming/30348-tool-tut-win-unreal-qt-creator-project-generator-v0-3.
 
 <b>Installation:</b>
 <ol>
-  <li>Download the latest version from [here][latest version]</li>
+  <li>Download the latest version from https://github.com/nibau/Unreal-Qt-project-generator/releases/latest</li>
   <li>Extract the contents of the zip file to your preferred location</li>
   <li>First make sure that .pro files are associated with QtCreator, then execute uProGen for the initial configuration</li>
   <li>(Optional) Add the uProGen folder to your PATH variable, so you can launch uProGen from any location</li>
@@ -41,6 +41,3 @@ Since QtCreator 4.7, [Clang code model](https://blog.qt.io/blog/2018/06/05/qt-cr
 <h3>How to build</h3>
 Just open the .sln file with Visual Studio 2013/2015 and hit build (.NET Framework 4.0 required, no other dependencies).<br>
 The qtBuildPreset.xml file needs to be in the same folder as the executable when you want to run the tool.
-
-[ue post]: https://forums.unrealengine.com/development-discussion/c-gameplay-programming/30348-tool-tut-win-unreal-qt-creator-project-generator-v0-3
-[latest version]: https://github.com/nibau/Unreal-Qt-project-generator/releases/latest
